@@ -1,0 +1,57 @@
+machine:
+  timezone:
+    Asia/Jerusalem
+  xcode:
+    version: 8.3.2
+  ruby:
+    version: 2.3.4
+
+dependencies:
+  cache_directories:
+    - ~/.cocoapods/
+    - ~/Library/Caches/Homebrew
+    - vendor/cache
+    - ~/.npm
+  override:
+    - |
+      # bundle install   ........................................................................................................................................
+      bundle install
+      bundle package
+    - |
+      # brew update   ........................................................................................................................................
+      brew update
+    - |
+      # install thrift compiler   ........................................................................................................................................
+      HOMEBREW_NO_AUTO_UPDATE=1 brew install thrift
+    - |
+      # install swiftlint   ........................................................................................................................................
+      HOMEBREW_NO_AUTO_UPDATE=1 brew install swiftlint
+    - |
+      # pod install   .........................................................................................................................................
+      bundle exec pod setup
+      bundle exec pod install
+    - |
+      # Podfile.lock   .........................................................................................................................................
+      cat Podfile.lock
+test:
+  override:
+    - |
+      # swiftlint  .........................................................................................................................................
+      ! (swiftlint --reporter emoji 2> /dev/null | tee /dev/fd/2 | grep "⛔️" > /dev/null)
+    - |
+      # run tests  .........................................................................................................................................
+      set -o pipefail && \
+      xcodebuild build test \
+        -workspace BeaconKit.xcworkspace \
+        -scheme BeaconKitTests \
+        -sdk iphonesimulator \
+        -configuration Debug \
+        -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest' \
+        CODE_SIGNING_REQUIRED=NO \
+        CODE_SIGN_IDENTITY= \
+        PROVISIONING_PROFILE= | \
+      tee $CIRCLE_ARTIFACTS/xcode_raw.log | \
+      xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/results.xml
+  # post:
+  #   - |
+  #     #xunit-viewer --results=$CIRCLE_TEST_REPORTS/results.xml --output="$CIRCLE_TEST_REPORTS/results.html" --title="Test Results"

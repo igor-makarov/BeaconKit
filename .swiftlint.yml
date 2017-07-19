@@ -1,0 +1,29 @@
+disabled_rules:
+  - type_body_length
+  - file_length
+  - trailing_whitespace
+  - force_cast
+  - shorthand_operator
+  - identifier_name
+opt_in_rules:
+  - explicit_init
+  - force_unwrapping
+excluded: 
+  - Pods
+reporter: "xcode" # reporter type (xcode, json, csv, checkstyle, junit)
+line_length:
+  warning: 180
+  error: 180
+vertical_whitespace:
+  max_empty_lines: 2
+function_body_length:
+  warning: 60
+  error: 100
+cyclomatic_complexity:
+  warning: 10
+  error: 20
+type_name:
+  max_length: 60
+implicit_getter: error
+
+
