@@ -13,7 +13,8 @@ public struct BeaconRawData {
     let fields: [Data]
 }
 
-open class Beacon {
+@objc
+open class Beacon: NSObject {
 
     open class var layout: ParserLayout { fatalError() }
     open class var serviceUuid: CBUUID { fatalError() }

@@ -6,7 +6,7 @@
 
 import CoreBluetooth
 
-public class EddystoneUidBeacon: Beacon, CustomStringConvertible {
+public class EddystoneUidBeacon: Beacon {
     // swiftlint:disable:next force_try
     static let _layout = try! ParserLayout("m:0-0=00,p:1-1,i:2-11,i:12-17")
     override open class var layout: ParserLayout { return _layout }
@@ -22,12 +22,12 @@ public class EddystoneUidBeacon: Beacon, CustomStringConvertible {
         return string
     }
     
-    public var description: String {
+    override public var description: String {
         return "\(identifier) RX/TX:\(-rssi)/\(-txPower) Eddystone UID: \(namespace) \(instance)"
     }
 }
 
-public class EddystoneUrlBeacon: Beacon, CustomStringConvertible {
+public class EddystoneUrlBeacon: Beacon {
     // swiftlint:disable:next force_try
     static let _layout = try! ParserLayout("m:0-0=10,p:1-1,i:2-19")
     override open class var layout: ParserLayout { return _layout }
@@ -57,7 +57,7 @@ public class EddystoneUrlBeacon: Beacon, CustomStringConvertible {
         ".gov"
     ]
 
-    public var description: String {
+    override public var description: String {
         let url = self.url?.absoluteString ?? "(null)"
         return "\(identifier) RX/TX:\(-rssi)/\(-txPower) Eddystone URL: \(url)"
     }

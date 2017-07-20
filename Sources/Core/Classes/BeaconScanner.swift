@@ -6,10 +6,12 @@
 
 import CoreBluetooth
 
+@objc
 public protocol BeaconScannerDelegate: class {
     func beaconScanner(_ beaconScanner: BeaconScanner, didDiscover beacon: Beacon)
 }
 
+@objc
 public class BeaconScanner: NSObject {
     public static let shared = BeaconScanner()
     
@@ -39,6 +41,7 @@ public class BeaconScanner: NSObject {
     }
 }
 
+// MARK: CBCentralManagerDelegate
 extension BeaconScanner: CBCentralManagerDelegate {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
@@ -64,4 +67,13 @@ extension BeaconScanner: CBCentralManagerDelegate {
     }
     
     public func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) { }
+}
+
+// MARK: ObjC only
+public extension BeaconScanner {
+    @available(swift, obsoleted: 3.0)
+    @objc
+    public func start() {
+        self.start(restoreIdentifier: nil)
+    }
 }
