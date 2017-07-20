@@ -1,6 +1,5 @@
 //
 //  PatternFragments.swift
-//  BeaconKit
 //
 //  Created by Igor Makarov on 19/07/2017.
 //
@@ -46,13 +45,17 @@ class PatternFragment {
     }
     
     static func matchingFragmentStrings(string: String) throws -> [String] {
-        guard let regexMatch = PatternFragment._regex.matches(in: string, options: [], range: NSRange(location: 0, length: string.count)).first else {
+        guard let regexMatch = PatternFragment._regex.matches(in: string, options: [], range: NSRange(location: 0, length: (string as NSString).length)).first else {
             throw BeaconParsingError.incorrectFragmentSpecification
         }
         guard [4, 5].contains(regexMatch.numberOfRanges) else { throw BeaconParsingError.incorrectFragmentSpecification }
         
         let matches = (1..<regexMatch.numberOfRanges).flatMap { (n: Int) -> String? in
+            #if swift(>=4.0)
+            let range = regexMatch.range(at: n)
+            #else
             let range = regexMatch.rangeAt(n)
+            #endif
             if range.location != NSNotFound {
                 let r = string.index(string.startIndex, offsetBy: range.location)..<string.index(string.startIndex, offsetBy: range.location+range.length)
                 return string.substring(with: r)
@@ -64,13 +67,51 @@ class PatternFragment {
 }
 
 class IntegerFragment: PatternFragment {
+    #if swift(>=3.2)
     func getValue<T>(_ data: Data) throws -> T where T: FixedWidthInteger {
         guard T.bitWidth / 8 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
         let subdata = data.subdata(in: (start..<end + 1))
         guard subdata.count == T.bitWidth / 8 else { throw BeaconParsingError.parseError }
         return try subdata.toInteger()
     }
-    
+    #else
+    func getValue(_ data: Data) throws -> UInt8 {
+        guard 1 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let subdata = data.subdata(in: (start..<end + 1))
+        guard subdata.count == 1 else { throw BeaconParsingError.parseError }
+        return try subdata.toInteger()
+    }
+    func getValue(_ data: Data) throws -> Int8 {
+        guard 1 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let subdata = data.subdata(in: (start..<end + 1))
+        guard subdata.count == 1 else { throw BeaconParsingError.parseError }
+        return try subdata.toInteger()
+    }
+    func getValue(_ data: Data) throws -> UInt16 {
+        guard 2 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let subdata = data.subdata(in: (start..<end + 1))
+        guard subdata.count == 2 else { throw BeaconParsingError.parseError }
+        return try subdata.toInteger()
+    }
+    func getValue(_ data: Data) throws -> Int16 {
+        guard 2 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let subdata = data.subdata(in: (start..<end + 1))
+        guard subdata.count == 2 else { throw BeaconParsingError.parseError }
+        return try subdata.toInteger()
+    }
+    func getValue(_ data: Data) throws -> UInt32 {
+        guard 4 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let subdata = data.subdata(in: (start..<end + 1))
+        guard subdata.count == 4 else { throw BeaconParsingError.parseError }
+        return try subdata.toInteger()
+    }
+    func getValue(_ data: Data) throws -> Int32 {
+        guard 4 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let subdata = data.subdata(in: (start..<end + 1))
+        guard subdata.count == 4 else { throw BeaconParsingError.parseError }
+        return try subdata.toInteger()
+    }
+    #endif
     func getValueAsInt(_ data: Data, signed: Bool) throws -> Int {
         switch length {
         case 1: return signed ? Int(try getValue(data) as Int8) : Int(try getValue(data) as UInt8)
@@ -89,10 +130,9 @@ class PatternMatchingFragment: IntegerFragment {
         super.init(start: start, end: end)
     }
     
-    override func getValue<T>(_ data: Data) throws -> T where T: FixedWidthInteger {
-        let result: T = try super.getValue(data)
+    override func getValueAsInt(_ data: Data, signed: Bool) throws -> Int {
+        let result = try super.getValueAsInt(data, signed: signed)
         let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == T.bitWidth / 8 else { throw BeaconParsingError.parseError }
         if let match = match, match != subdata { throw BeaconParsingError.fieldDoesNotMatch }
         return result
     }

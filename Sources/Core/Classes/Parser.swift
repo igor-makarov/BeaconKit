@@ -1,6 +1,5 @@
 //
 //  Parser.swift
-//  BeaconKit
 //
 //  Created by Igor Makarov on 19/07/2017.
 //

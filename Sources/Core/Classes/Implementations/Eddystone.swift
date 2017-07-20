@@ -1,6 +1,5 @@
 //
 //  Eddystone.swift
-//  BeaconKit
 //
 //  Created by Igor Makarov on 19/07/2017.
 //
@@ -75,11 +74,11 @@ public class EddystoneUrlBeacon: Beacon, CustomStringConvertible {
         for (offset, byte) in data.enumerated() {
             switch offset {
             case 0:
-                if byte < EddystoneUrlBeacon._schemePrefixes.count {
+                if Int(byte) < EddystoneUrlBeacon._schemePrefixes.count {
                     urlString += EddystoneUrlBeacon._schemePrefixes[Int(byte)]
                 }
             case 1...data.count-1:
-                if byte < EddystoneUrlBeacon._urlEncodings.count {
+                if Int(byte) < EddystoneUrlBeacon._urlEncodings.count {
                     urlString += EddystoneUrlBeacon._urlEncodings[Int(byte)]
                 } else {
                     let unicode = UnicodeScalar(byte)

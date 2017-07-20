@@ -1,3 +1,9 @@
+//
+//  BeaconParser.swift
+//
+//  Created by Igor Makarov on 19/07/2017.
+//
+
 import CoreBluetooth
 
 class BeaconParser {

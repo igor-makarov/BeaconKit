@@ -1,6 +1,5 @@
 //
-//  iBeacon.swift
-//  BeaconKit
+//  AltBeacon.swift
 //
 //  Created by Igor Makarov on 19/07/2017.
 //
@@ -14,9 +13,9 @@ public class AltBeacon: Beacon, CustomStringConvertible {
     override open class var serviceUuid: CBUUID { return CBUUID(string: "8C422626-0C6E-4B86-8EC7-9147B233D97E") }
     
     public private(set) lazy var identifiers: [String] = self.beaconData.identifiers.map { $0.toString() }
-    public private(set) lazy var namespace = self.beaconData.identifiers[0].toString()
-    public private(set) lazy var major = self.beaconData.identifiers[1].toString()
-    public private(set) lazy var minor = self.beaconData.identifiers[2].toString()
+    public private(set) lazy var namespace: String = self.beaconData.identifiers[0].toString()
+    public private(set) lazy var major: String = self.beaconData.identifiers[1].toString()
+    public private(set) lazy var minor: String = self.beaconData.identifiers[2].toString()
     
     public var description: String {
         return "\(identifier) RX/TX:\(-rssi)/\(-txPower) AltBeacon: \(identifiers.joined(separator: ":"))"

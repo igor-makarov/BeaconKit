@@ -1,9 +1,41 @@
+//
+//  Extensions.swift
+//
+//  Created by Igor Makarov on 19/07/2017.
+//
+
 extension Data {
+    #if swift(>=3.2)
     func toInteger<T>() throws -> T where T: FixedWidthInteger {
         guard T.bitWidth / 8 == self.count else { throw BeaconParsingError.parseError }
         return self.withUnsafeBytes { $0.pointee }
     }
-    
+    #else
+    func toInteger() throws -> UInt8 {
+        guard 1 == self.count else { throw BeaconParsingError.parseError }
+        return self.withUnsafeBytes { $0.pointee }
+    }
+    func toInteger() throws -> Int8 {
+        guard 1 == self.count else { throw BeaconParsingError.parseError }
+        return self.withUnsafeBytes { $0.pointee }
+    }
+    func toInteger() throws -> UInt16 {
+        guard 2 == self.count else { throw BeaconParsingError.parseError }
+        return self.withUnsafeBytes { $0.pointee }
+    }
+    func toInteger() throws -> Int16 {
+        guard 2 == self.count else { throw BeaconParsingError.parseError }
+        return self.withUnsafeBytes { $0.pointee }
+    }
+    func toInteger() throws -> UInt32 {
+        guard 4 == self.count else { throw BeaconParsingError.parseError }
+        return self.withUnsafeBytes { $0.pointee }
+    }
+    func toInteger() throws -> Int32 {
+        guard 4 == self.count else { throw BeaconParsingError.parseError }
+        return self.withUnsafeBytes { $0.pointee }
+    }
+    #endif
     static func from(hex: String) -> Data {
         var hex = hex
         var data = Data()
