@@ -11,8 +11,8 @@ matrix:
         - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
         - cat Base.xcconfig
       script:
-        - set -o pipefail;
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID"
+        - set -o pipefail && \
+          open -a "simulator" --args -CurrentDeviceUDID "$UUID" && \
           xcodebuild build test \
             -workspace BeaconKit.xcworkspace \
             -scheme BeaconKitTests \
@@ -31,8 +31,8 @@ matrix:
         - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
         - cat Base.xcconfig
       script:
-        - set -o pipefail;
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID"
+        - set -o pipefail && \
+          open -a "simulator" --args -CurrentDeviceUDID "$UUID" && \
           xcodebuild build test \
             -workspace BeaconKit.xcworkspace \
             -scheme BeaconKitTests \
@@ -51,8 +51,8 @@ matrix:
         - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
         - cat Base.xcconfig
       script:
-        - set -o pipefail;
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID"
+        - set -o pipefail && \
+          open -a "simulator" --args -CurrentDeviceUDID "$UUID" && \
           xcodebuild build test \
             -workspace BeaconKit.xcworkspace \
             -scheme BeaconKitTests \
