@@ -1,4 +1,4 @@
-# BeaconKit
+# BeaconKit [![Build Status](https://travis-ci.org/igor-makarov/BeaconKit.svg?branch=master)](https://travis-ci.org/igor-makarov/BeaconKit) ![Current Version](https://img.shields.io/github/tag/igor-makarov/BeaconKit.svg?label=Current%20Version)
 iOS Beacon framework using BTLE
 ## TL;DR
 This is a framework that wraps around CoreBluetooth and detects beacons of different types.
