@@ -1,7 +1,9 @@
 # BeaconKit [![Build Status](https://travis-ci.org/igor-makarov/BeaconKit.svg?branch=master)](https://travis-ci.org/igor-makarov/BeaconKit) ![Current Version](https://img.shields.io/github/tag/igor-makarov/BeaconKit.svg?label=Current%20Version)
-iOS Beacon framework using BTLE
+iOS Beacon framework using BTLE written in Swift
 ## TL;DR
 This is a framework that wraps around CoreBluetooth and detects beacons of different types.
+
+Tested to compile with Swift 3.1, 3.2 & 4.0
 
 The currently supported types are: **Eddystone-UID**, **Eddystone-URL** & **AltBeacon**.
 
