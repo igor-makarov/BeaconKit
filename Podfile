@@ -14,6 +14,7 @@ abstract_target 'BeaconKitCommon' do
   target 'BeaconKitTests' do 
   end
   target 'BeaconKitSample'
+  target 'BeaconKitSampleObjC'
 end
 
 post_install do |installer_representation|

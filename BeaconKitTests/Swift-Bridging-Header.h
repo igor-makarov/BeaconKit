@@ -2,7 +2,7 @@
 //  Swift-Bridging-Header.h
 //  BeaconKit
 //
-//  Created by Igor Makarov on 17/05/2017.
+//  Created by w on 17/05/2017.
 //
 
 

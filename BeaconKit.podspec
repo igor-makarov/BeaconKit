@@ -23,5 +23,8 @@ Scan for Eddystone-UID, Eddystone-URL & AltBeacon
     sp.source_files = "Sources/Core/**/*.{h,m,swift}"
   end
 
+  s.subspec 'ObjC' do |sp|
+    sp.source_files = "Sources/ObjC/**/*.{h,m,swift}"
+  end
 
 end
