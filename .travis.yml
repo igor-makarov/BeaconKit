@@ -11,6 +11,7 @@ matrix:
         - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
         - cat Base.xcconfig
       script:
+        - ! (Pods/SwiftLint/swiftlint --reporter emoji 2> /dev/null | tee /dev/fd/2 | grep "⛔️" > /dev/null)
         - set -o pipefail && xcodebuild build test -workspace BeaconKit.xcworkspace -scheme BeaconKitTests -sdk iphonesimulator -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest' CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= PROVISIONING_PROFILE= | xcpretty
     - os: osx
       language: objective-c
@@ -21,6 +22,7 @@ matrix:
         - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
         - cat Base.xcconfig
       script:
+        - ! (Pods/SwiftLint/swiftlint --reporter emoji 2> /dev/null | tee /dev/fd/2 | grep "⛔️" > /dev/null)
         - set -o pipefail && xcodebuild build test -workspace BeaconKit.xcworkspace -scheme BeaconKitTests -sdk iphonesimulator -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest' CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= PROVISIONING_PROFILE= | xcpretty
     - os: osx
       language: objective-c
@@ -31,4 +33,5 @@ matrix:
         - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
         - cat Base.xcconfig
       script:
+        - ! (Pods/SwiftLint/swiftlint --reporter emoji 2> /dev/null | tee /dev/fd/2 | grep "⛔️" > /dev/null)
         - set -o pipefail && xcodebuild build test -workspace BeaconKit.xcworkspace -scheme BeaconKitTests -sdk iphonesimulator -configuration Debug -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest' CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY= PROVISIONING_PROFILE= | xcpretty

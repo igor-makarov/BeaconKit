@@ -10,6 +10,7 @@ project 'BeaconKit.xcodeproj'
 
 abstract_target 'BeaconKitCommon' do
   pod 'BeaconKit', :path => './'
+  pod 'SwiftLint'
 
   target 'BeaconKitTests' do 
   end
