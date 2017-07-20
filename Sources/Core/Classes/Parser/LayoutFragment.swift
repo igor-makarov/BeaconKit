@@ -74,56 +74,6 @@ class IntegerFragment: LayoutFragment {
         super.init(start: start, end: end)
     }
     
-    #if swift(>=3.2)
-    func getValue<T>(_ data: Data) throws -> T where T: FixedWidthInteger {
-        guard T.bitWidth / 8 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
-        let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == T.bitWidth / 8 else { throw BeaconParsingError.parseError }
-        let result: T = try subdata.toInteger()
-        return bigEndian ? result.bigEndian : result
-    }
-    #else
-    func getValue(_ data: Data) throws -> UInt8 {
-        guard 1 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
-        let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == 1 else { throw BeaconParsingError.parseError }
-        return try subdata.toInteger()
-    }
-    func getValue(_ data: Data) throws -> Int8 {
-        guard 1 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
-        let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == 1 else { throw BeaconParsingError.parseError }
-        return try subdata.toInteger()
-    }
-    func getValue(_ data: Data) throws -> UInt16 {
-        guard 2 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
-        let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == 2 else { throw BeaconParsingError.parseError }
-        let result: UInt16 = try subdata.toInteger()
-        return bigEndian ? result.bigEndian : result
-    }
-    func getValue(_ data: Data) throws -> Int16 {
-        guard 2 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
-        let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == 2 else { throw BeaconParsingError.parseError }
-        let result: Int16 = try subdata.toInteger()
-        return bigEndian ? result.bigEndian : result
-    }
-    func getValue(_ data: Data) throws -> UInt32 {
-        guard 4 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
-        let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == 4 else { throw BeaconParsingError.parseError }
-        let result: UInt32 = try subdata.toInteger()
-        return bigEndian ? result.bigEndian : result
-    }
-    func getValue(_ data: Data) throws -> Int32 {
-        guard 4 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
-        let subdata = data.subdata(in: (start..<end + 1))
-        guard subdata.count == 4 else { throw BeaconParsingError.parseError }
-        let result: Int32 = try subdata.toInteger()
-        return bigEndian ? result.bigEndian : result
-    }
-    #endif
     func getValueAsInt(_ data: Data, signed: Bool) throws -> Int {
         switch length {
         case 1: return signed ? Int(try getValue(data) as Int8) : Int(try getValue(data) as UInt8)
@@ -132,6 +82,17 @@ class IntegerFragment: LayoutFragment {
         default: throw BeaconParsingError.incorrectFragmentSpecification
         }
     }
+    
+    #if swift(>=3.2)
+    @available(swift, introduced: 3.2)
+    func getValue<T>(_ data: Data) throws -> T where T: FixedWidthInteger {
+        guard T.bitWidth / 8 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let subdata = data.subdata(in: (start..<end + 1))
+        guard subdata.count == T.bitWidth / 8 else { throw BeaconParsingError.parseError }
+        let result: T = try subdata.toInteger()
+        return bigEndian ? result.bigEndian : result
+    }
+    #endif
 }
 
 class PatternMatchingFragment: IntegerFragment {
