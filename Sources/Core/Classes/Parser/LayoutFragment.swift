@@ -87,15 +87,13 @@ class IntegerFragment: LayoutFragment {
         guard 1 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
         let subdata = data.subdata(in: (start..<end + 1))
         guard subdata.count == 1 else { throw BeaconParsingError.parseError }
-        let result: UInt8 = try subdata.toInteger()
-        return bigEndian ? result.bigEndian : result
+        return try subdata.toInteger()
     }
     func getValue(_ data: Data) throws -> Int8 {
         guard 1 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
         let subdata = data.subdata(in: (start..<end + 1))
         guard subdata.count == 1 else { throw BeaconParsingError.parseError }
-        let result: Int8 = try subdata.toInteger()
-        return bigEndian ? result.bigEndian : result
+        return try subdata.toInteger()
     }
     func getValue(_ data: Data) throws -> UInt16 {
         guard 2 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
