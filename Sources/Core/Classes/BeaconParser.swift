@@ -18,7 +18,7 @@ class BeaconParser {
         return try beacons(advertisements: advertisementsFound, rssi: rssi, identifier: identifier)
     }
     
-    private func beacons(advertisements: [Data], rssi: Int, identifier: UUID) throws -> [Beacon] {
+    func beacons(advertisements: [Data], rssi: Int, identifier: UUID) throws -> [Beacon] {
         return advertisements.flatMap { data -> Beacon? in
             for beaconType in self.recognizedBeaconTypes {
                 do {

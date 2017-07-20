@@ -22,9 +22,7 @@ matrix:
             -destination "id=$UUID" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY= \
-            PROVISIONING_PROFILE= | \
-          tee $CIRCLE_ARTIFACTS/xcode_raw.log | \
-          xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/results.xml
+            PROVISIONING_PROFILE= | xcpretty
     - os: osx
       language: objective-c
       osx_image: xcode9
@@ -45,9 +43,7 @@ matrix:
             -destination "id=$UUID" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY= \
-            PROVISIONING_PROFILE= | \
-          tee $CIRCLE_ARTIFACTS/xcode_raw.log | \
-          xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/results.xml
+            PROVISIONING_PROFILE= | xcpretty
     - os: osx
       language: objective-c
       osx_image: xcode9
@@ -68,6 +64,4 @@ matrix:
             -destination "id=$UUID" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY= \
-            PROVISIONING_PROFILE= | \
-          tee $CIRCLE_ARTIFACTS/xcode_raw.log | \
-          xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/results.xml
+            PROVISIONING_PROFILE= | xcpretty
