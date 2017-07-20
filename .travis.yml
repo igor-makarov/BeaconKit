@@ -12,7 +12,6 @@ matrix:
         - cat Base.xcconfig
       script:
         - set -o pipefail && \
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID" && \
           xcodebuild build test \
             -workspace BeaconKit.xcworkspace \
             -scheme BeaconKitTests \
@@ -32,7 +31,6 @@ matrix:
         - cat Base.xcconfig
       script:
         - set -o pipefail && \
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID" && \
           xcodebuild build test \
             -workspace BeaconKit.xcworkspace \
             -scheme BeaconKitTests \
@@ -52,7 +50,6 @@ matrix:
         - cat Base.xcconfig
       script:
         - set -o pipefail && \
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID" && \
           xcodebuild build test \
             -workspace BeaconKit.xcworkspace \
             -scheme BeaconKitTests \
