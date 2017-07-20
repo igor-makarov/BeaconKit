@@ -1,10 +1,10 @@
 //
-//  PatternFragments.swift
+//  LayoutFragments.swift
 //
 //  Created by Igor Makarov on 19/07/2017.
 //
 
-class PatternFragment {
+class LayoutFragment {
     let start: Int
     let end: Int
     var length: Int { return end - start + 1 }
@@ -18,8 +18,8 @@ class PatternFragment {
         self.end = end
     }
     
-    static func fragment(string: String) throws -> PatternFragment {
-        let matches = try PatternFragment.matchingFragmentStrings(string: string)
+    static func fragment(string: String) throws -> LayoutFragment {
+        let matches = try LayoutFragment.matchingFragmentStrings(string: string)
         
         guard let start = Int(matches[1]) else { throw BeaconParsingError.incorrectFragmentSpecification }
         guard let end = Int(matches[2]) else { throw BeaconParsingError.incorrectFragmentSpecification }
@@ -45,7 +45,7 @@ class PatternFragment {
     }
     
     static func matchingFragmentStrings(string: String) throws -> [String] {
-        guard let regexMatch = PatternFragment._regex.matches(in: string, options: [], range: NSRange(location: 0, length: (string as NSString).length)).first else {
+        guard let regexMatch = LayoutFragment._regex.matches(in: string, options: [], range: NSRange(location: 0, length: (string as NSString).length)).first else {
             throw BeaconParsingError.incorrectFragmentSpecification
         }
         guard [4, 5].contains(regexMatch.numberOfRanges) else { throw BeaconParsingError.incorrectFragmentSpecification }
@@ -66,7 +66,7 @@ class PatternFragment {
     }
 }
 
-class IntegerFragment: PatternFragment {
+class IntegerFragment: LayoutFragment {
     #if swift(>=3.2)
     func getValue<T>(_ data: Data) throws -> T where T: FixedWidthInteger {
         guard T.bitWidth / 8 == length else { throw BeaconParsingError.incorrectFragmentSpecification }
@@ -142,7 +142,7 @@ class TxPowerFragment: IntegerFragment { }
 
 class BeaconTypeFragment: PatternMatchingFragment {  }
 
-class FieldFragment: PatternFragment {
+class FieldFragment: LayoutFragment {
     let canBeShorter: Bool = true
     func getValue(_ data: Data) throws -> Data {
         var desiredRange = Range(start..<end + 1)

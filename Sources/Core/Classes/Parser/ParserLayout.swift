@@ -1,24 +1,17 @@
 //
-//  Parser.swift
+//  ParserLayout.swift
 //
 //  Created by Igor Makarov on 19/07/2017.
 //
 
-public struct BeaconData {
-    let type: Int
-    let txPower: Int
-    let identifiers: [Data]
-    let fields: [Data]
-}
-
 public class ParserLayout {
-    let fragments: [PatternFragment]
+    let fragments: [LayoutFragment]
     let typeFragment: BeaconTypeFragment
     let txPowerFragment: TxPowerFragment
     
     public init(_ pattern: String) throws {
         self.fragments = try pattern.components(separatedBy: ",").map { string in
-            return try PatternFragment.fragment(string: string)
+            return try LayoutFragment.fragment(string: string)
         }
         
         let typeFragments = self.fragments.flatMap { fragment -> BeaconTypeFragment? in fragment as? BeaconTypeFragment }
@@ -30,7 +23,7 @@ public class ParserLayout {
         self.txPowerFragment = txPowerFragment
     }
     
-    func parse(_ data: Data) throws -> BeaconData {
+    func parse(_ data: Data) throws -> BeaconRawData {
         var identifiers = [Data]()
         var fields = [Data]()
         
@@ -49,6 +42,6 @@ public class ParserLayout {
             }
         }
         
-        return BeaconData(type: type, txPower: txPower, identifiers:identifiers, fields: fields)
+        return BeaconRawData(type: type, txPower: txPower, identifiers:identifiers, fields: fields)
     }
 }

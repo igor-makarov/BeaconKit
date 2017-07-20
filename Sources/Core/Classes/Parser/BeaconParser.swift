@@ -6,6 +6,14 @@
 
 import CoreBluetooth
 
+public enum BeaconParsingError: Error {
+    case dataNotFound
+    case unrecognizedBeaconType
+    case incorrectFragmentSpecification
+    case fieldDoesNotMatch
+    case parseError
+}
+
 class BeaconParser {
     let recognizedBeaconTypes: [Beacon.Type]
     
