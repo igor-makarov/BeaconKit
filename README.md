@@ -8,3 +8,21 @@ The currently supported types are: **Eddystone-UID**, **Eddystone-URL** & **AltB
 It's not possible to detect iBeacons using CoreBluetooth on iOS (see [this explanation](http://developer.radiusnetworks.com/2013/10/21/corebluetooth-doesnt-let-you-see-ibeacons.html) for more info).
 
 Only foreground operation is supported, but I plan on adding background detection of Eddystones (it's not possible to detect AltBeacons in the bacground).
+## Usage
+Activating:
+```
+BeaconScanner.shared.delegate = self
+BeaconScanner.shared.start()
+```
+Deactivating:
+```
+BeaconScanner.shared.stop()
+```
+## Supported Beacon Types
+* Eddystone-UID
+* Eddystone-URL
+* AltBeacon (FG only)
+## Known Unsupported Beacon Types
+* Eddystone-TLM (not an actual beacon)
+* iBeacon (Apple limitation)
+
