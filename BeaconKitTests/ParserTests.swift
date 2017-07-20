@@ -27,6 +27,7 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(beacon.beaconType, 0)
         XCTAssertEqual(beacon.namespace, "00010203040506070809")
         XCTAssertEqual(beacon.instance, "01020304050A")
+        XCTAssertEqual(beacon.instance, "01020304050B")
         XCTAssertEqual(beacon.beaconData.fields, [])
     }
 }
