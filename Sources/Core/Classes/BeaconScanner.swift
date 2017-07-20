@@ -6,6 +6,10 @@
 
 import CoreBluetooth
 
+public protocol BeaconScannerDelegate: class {
+    func beaconScanner(_ beaconScanner: BeaconScanner, didDiscover beacon: Beacon)
+}
+
 public class BeaconScanner: NSObject {
     public static let shared = BeaconScanner()
     
@@ -14,6 +18,8 @@ public class BeaconScanner: NSObject {
             _beaconParser = BeaconParser(recognizedBeaconTypes)
         }
     }
+    
+    public weak var delegate: BeaconScannerDelegate?
 
     fileprivate var _beaconParser: BeaconParser
     fileprivate var _centralManager: CBCentralManager?
@@ -52,7 +58,7 @@ extension BeaconScanner: CBCentralManagerDelegate {
         if parsedBeacons.isEmpty { return }
         
         for beacon in parsedBeacons {
-            print("Discovered beacon: \(beacon)")
+            self.delegate?.beaconScanner(self, didDiscover: beacon)
         }
         
     }
