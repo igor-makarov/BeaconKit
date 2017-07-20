@@ -1,49 +1,32 @@
+os: osx
 matrix:
-  include:
-    - os: osx
-      language: objective-c
-      osx_image: xcode8.3
-      env:
-        - SWIFT_VERSION=3.0
-      before_install:
-        export UUID=$(instruments -s | ruby -e "ARGF.each_line{ |ln| ln =~ /$NAME .* \[(.*)\]/; if \$1; puts(\$1); exit; end }");
-      before_script:
-        - bundle install
-        - bundle exec pod install
-      script:
-        - set -o pipefail;
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID"
-          xcodebuild build test \
-            -workspace BeaconKit.xcworkspace \
-            -scheme BeaconKitTests \
-            -sdk iphonesimulator \
-            -configuration Debug \
-            -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest' \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY= \
-            PROVISIONING_PROFILE= | \
-          tee $CIRCLE_ARTIFACTS/xcode_raw.log | \
-          xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/results.xml
-    - os: osx
-      language: objective-c
-      osx_image: xcode89
-      env:
-        - SWIFT_VERSION=3.0
-        - SWIFT_VERSION=4.0
-      before_script:
-        - bundle install
-        - bundle exec pod install
-      script:
-        - set -o pipefail;
-          open -a "simulator" --args -CurrentDeviceUDID "$UUID"
-          xcodebuild build test \
-            -workspace BeaconKit.xcworkspace \
-            -scheme BeaconKitTests \
-            -sdk iphonesimulator \
-            -configuration Debug \
-            -destination 'platform=iOS Simulator,name=iPhone 7,OS=latest' \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY= \
-            PROVISIONING_PROFILE= | \
-          tee $CIRCLE_ARTIFACTS/xcode_raw.log | \
-          xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/results.xml
+  exclude:
+  - osx_image: xcode8.3
+    env: SWIFT_VERSION=4.0
+
+language: objective-c
+osx_image: 
+  - xcode8.3
+  - xcode9
+env:
+  - SWIFT_VERSION=3.0
+  - SWIFT_VERSION=4.0
+before_install:
+  export UUID=$(instruments -s | ruby -e "ARGF.each_line{ |ln| ln =~ /$NAME .* \[(.*)\]/; if \$1; puts(\$1); exit; end }");
+before_script:
+  - bundle install
+  - bundle exec pod install
+script:
+  - set -o pipefail;
+    open -a "simulator" --args -CurrentDeviceUDID "$UUID"
+    xcodebuild build test \
+      -workspace BeaconKit.xcworkspace \
+      -scheme BeaconKitTests \
+      -sdk iphonesimulator \
+      -configuration Debug \
+      -destination "id=$UUID" \
+      CODE_SIGNING_REQUIRED=NO \
+      CODE_SIGN_IDENTITY= \
+      PROVISIONING_PROFILE= | \
+    tee $CIRCLE_ARTIFACTS/xcode_raw.log | \
+    xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/results.xml
