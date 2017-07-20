@@ -8,9 +8,8 @@ matrix:
       before_install:
         export UUID=$(instruments -s | ruby -e "ARGF.each_line{ |ln| ln =~ /$NAME .* \[(.*)\]/; if \$1; puts(\$1); exit; end }");
       before_script:
-        - bundle install
-        - bundle exec pod install
-        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig
+        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
+        - cat Base.xcconfig
       script:
         - set -o pipefail;
           open -a "simulator" --args -CurrentDeviceUDID "$UUID"
@@ -29,9 +28,8 @@ matrix:
       env:
         - SWIFT_VERSION=3.0
       before_script:
-        - bundle install
-        - bundle exec pod install
-        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig
+        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
+        - cat Base.xcconfig
       script:
         - set -o pipefail;
           open -a "simulator" --args -CurrentDeviceUDID "$UUID"
@@ -50,9 +48,8 @@ matrix:
       env:
         - SWIFT_VERSION=4.0
       before_script:
-        - bundle install
-        - bundle exec pod install
-        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig
+        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
+        - cat Base.xcconfig
       script:
         - set -o pipefail;
           open -a "simulator" --args -CurrentDeviceUDID "$UUID"
