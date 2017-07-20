@@ -39,6 +39,11 @@ public class BeaconScanner: NSObject {
                                                options: nil)
         }
     }
+    
+    public func stop() {
+        _centralManager?.stopScan()
+        _centralManager = nil
+    }
 }
 
 // MARK: CBCentralManagerDelegate

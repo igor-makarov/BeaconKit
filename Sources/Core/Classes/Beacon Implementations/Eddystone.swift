@@ -11,17 +11,10 @@ public class EddystoneUidBeacon: Beacon {
     static let _layout = try! ParserLayout("m:0-0=00,p:1-1,i:2-11,i:12-17")
     override open class var layout: ParserLayout { return _layout }
     override open class var serviceUuid: CBUUID { return CBUUID(string: "FEAA") }
-    
-    public var namespace: String {
-        guard let string = beaconData.identifiers.first?.toString() else {  fatalError() }
-        return string
-    }
-    
-    public var instance: String {
-        guard let string = beaconData.identifiers.last?.toString() else {  fatalError() }
-        return string
-    }
-    
+
+    public private(set) lazy var namespace: String = self.identifiers[0]
+    public private(set) lazy var instance: String = self.identifiers[1]
+
     override public var description: String {
         return "\(identifier) RX/TX:\(-rssi)/\(-txPower) Eddystone UID: \(namespace) \(instance)"
     }
@@ -32,6 +25,8 @@ public class EddystoneUrlBeacon: Beacon {
     static let _layout = try! ParserLayout("m:0-0=10,p:1-1,i:2-19")
     override open class var layout: ParserLayout { return _layout }
     override open class var serviceUuid: CBUUID { return CBUUID(string: "FEAA") }
+
+    override public var identifiers: [String] { return [self.url?.absoluteString ?? ""] }
     
     static let _schemePrefixes = [
         "http://www.",

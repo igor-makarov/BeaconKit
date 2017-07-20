@@ -51,7 +51,6 @@ fileprivate func advertisements(from advertisementData: [AnyHashable: Any]) thro
     return serviceData
         .filter { $1 is Data }
         .flatMap { _, value -> Data? in
-//            print(key)
             return value as? Data
     } + manufacturerDataArray
 }
