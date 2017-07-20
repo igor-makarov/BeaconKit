@@ -119,6 +119,8 @@ class FieldFragment: LayoutFragment {
     let canBeShorter: Bool = true
     func getValue(_ data: Data) throws -> Data {
         var desiredRange = Range(start..<end + 1)
+        guard start < data.endIndex else { throw BeaconParsingError.parseError }
+        
         let availableRange = Range(start..<data.endIndex)
         
         if availableRange.count < desiredRange.count {

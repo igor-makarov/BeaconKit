@@ -29,4 +29,14 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(beacon.instance, "01020304050A")
         XCTAssertEqual(beacon.beaconData.fields, [])
     }
+    
+    func testWhenDataTooSmall() throws {
+        let beaconParser = BeaconParser([EddystoneUidBeacon.self])
+        let data = Data.from(hex: "00870869")
+        
+        let rssi = -25
+        let identifier = UUID()
+        let beacons = try beaconParser.beacons(advertisements: [data], rssi: rssi, identifier: identifier)
+        XCTAssert(beacons.isEmpty)
+    }
 }
