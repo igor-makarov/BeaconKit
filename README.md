@@ -21,7 +21,7 @@ BeaconScanner.shared.stop()
 ## Supported Beacon Types
 * Eddystone-UID
 * Eddystone-URL
-* AltBeacon (FG only)
+* AltBeacon
 ## Known Unsupported Beacon Types
 * Eddystone-TLM (not an actual beacon)
 * iBeacon (Apple limitation)
