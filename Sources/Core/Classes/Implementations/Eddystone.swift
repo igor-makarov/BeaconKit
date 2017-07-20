@@ -93,4 +93,3 @@ public class EddystoneUrlBeacon: Beacon, CustomStringConvertible {
         return URL(string: urlString)
     }()
 }
-

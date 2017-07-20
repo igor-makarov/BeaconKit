@@ -42,9 +42,8 @@ fileprivate func advertisements(from advertisementData: [AnyHashable: Any]) thro
     }
     return serviceData
         .filter { $1 is Data }
-        .flatMap { key, value -> Data? in
+        .flatMap { _, value -> Data? in
 //            print(key)
             return value as? Data
     } + manufacturerDataArray
 }
-

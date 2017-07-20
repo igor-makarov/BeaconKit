@@ -30,4 +30,3 @@ open class Beacon {
         self.beaconData = try type(of: self).layout.parse(data)
     }
 }
-
