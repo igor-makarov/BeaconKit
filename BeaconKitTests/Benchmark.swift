@@ -48,14 +48,14 @@ class Benchmark {
         _measurements[key] = measurements
     }
     
-    public static func assert(key: String, expected: Double, margin: Double = 0.01) {
+    public static func assert(key: String, expected: Double, margin: Double = 0.1) {
         guard let benchmark = Benchmark.averages[key] else {
             XCTFail("Benchmark \"\(key)\" does not exist")
             return
         }
         let fraction = benchmark / expected
         let percent = String(format: "%.2f", 100*(fraction - 1.0))
-        if abs(fraction - 1.0) >= 0.1 {
+        if abs(fraction - 1.0) >= margin {
             XCTFail("Benchmark \(benchmark) deviates from expected value \(expected) by \(percent)%")
         } else {
             print("Benchmark \(benchmark): \(benchmark), expected value: \(expected) (\(percent)%)")
