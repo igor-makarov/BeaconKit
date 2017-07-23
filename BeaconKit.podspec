@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 filename = File.basename(__FILE__, ".podspec")
 
 Pod::Spec.new do |s|

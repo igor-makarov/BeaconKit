@@ -8,7 +8,13 @@
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:BeaconKit.podspec">
+   </FileRef>
+   <FileRef
       location = "group:BeaconKit.xcworkspace/xcshareddata/IDETemplateMacros.plist">
+   </FileRef>
+   <FileRef
+      location = "group:Podfile">
    </FileRef>
    <FileRef
       location = "group:README.md">
