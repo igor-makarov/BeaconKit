@@ -108,23 +108,28 @@ class EddystoneUrlParserTests: XCTestCase {
     
     func testBenchmark() {
         let charHexes = Array(UInt8("a".utf8.first!)...UInt8("z".utf8.first!))
-        
-        measure {
-            for prefix: UInt8 in 0...3 {
-                for suffix: UInt8 in 0...13 {
-                    for _ in 0...100 {
-                        let letters = (0...16).map { _ in
-                            charHexes[Int(arc4random_uniform(UInt32(charHexes.count)))]
-                        }
-                        let data = Data(bytes: [0x10, 0xe7, prefix] + letters + [suffix])
-                        let rssi = -25
-                        let identifier = UUID()
-                        let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
-                        let beacons = self.beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
-                        XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
-                    }
+        for prefix: UInt8 in 0...3 {
+            for suffix: UInt8 in 0...13 {
+                let letters = (0...16).map { _ in
+                    charHexes[Int(arc4random_uniform(UInt32(charHexes.count)))]
                 }
+                let data = Data(bytes: [0x10, 0xe7, prefix] + letters + [suffix])
+                let rssi = -25
+                let identifier = UUID()
+                let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
+                
+                let beacons = self.functionBeingMeasured(advertisements: [advertisement], rssi: rssi, identifier: identifier)
+                XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
             }
         }
+        Benchmark.assert(key: "Benchmark1", expected: 0.08)
+    }
+    
+    func functionBeingMeasured(advertisements: [BluetoothAdvertisement], rssi: Int, identifier: UUID) -> [Beacon] {
+        let benchmark = Benchmark(name: "Benchmark1")
+        for _ in 0...2000 {
+            _ = self.beaconParser.beacons(advertisements: advertisements, rssi: rssi, identifier: identifier)
+        }
+        return self.beaconParser.beacons(advertisements: advertisements, rssi: rssi, identifier: identifier)
     }
 }

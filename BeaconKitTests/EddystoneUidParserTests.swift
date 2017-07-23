@@ -92,19 +92,28 @@ class EddystoneUidParserTests: XCTestCase {
     }
     
     func testBenchmark() {
-        measure {
-            for _ in 0...10000 {
-                let bytes = (0...20).map { _ in UInt8(arc4random_uniform(256)) }
-                let data = Data(bytes: [0] + bytes)
-                
-                let rssi = -25
-                let identifier = UUID()
-                let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
-                
-                let beacons = self.beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
-                XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
-            }
+        for _ in 0...50 {
+            let bytes = (0...20).map { _ in UInt8(arc4random_uniform(256)) }
+            let data = Data(bytes: [0] + bytes)
+            
+            let rssi = -25
+            let identifier = UUID()
+            let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
+            
+            let beacons = self.functionBeingMeasured(advertisements: [advertisement], rssi: rssi, identifier: identifier)
+            XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
         }
+        Benchmark.assert(key: "Benchmark2", expected: 0.030)
+
     }
+    
+    func functionBeingMeasured(advertisements: [BluetoothAdvertisement], rssi: Int, identifier: UUID) -> [Beacon] {
+        let benchmark = Benchmark(name: "Benchmark2")
+        for _ in 0...2000 {
+            _ = self.beaconParser.beacons(advertisements: advertisements, rssi: rssi, identifier: identifier)
+        }
+        return self.beaconParser.beacons(advertisements: advertisements, rssi: rssi, identifier: identifier)
+    }
+
 
 }

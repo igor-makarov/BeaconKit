@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0544FEDC8D94FFDBEF5A3CAE3902F04D /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96373FA24D919BCDCC7EBC587C4088 /* Benchmark.swift */; };
 		0FAF5913EF533EC7C0CDC103D4344C13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 255F3EFDFE70B9EB698EAC454421409E /* LaunchScreen.storyboard */; };
 		1DF5DF7F36BC1435E15B02A8002467F9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA337C630C2F1D92E182CE150373C090 /* Main.storyboard */; };
 		251420086869E99FAD0911C8E7DFA907 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B1BFB8729693412184D696FE7A92CC9 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 		7ECD182B19C5D2EB9057A1EB8AB76833 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 654F7F1B768E28FA38BB68AF5310EEC9 /* main.m */; };
 		8CDCA5527EB9A56F9A1095C5B2DA502D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 803EFC6B427D20D4A61AD319FC4640AC /* LaunchScreen.storyboard */; };
 		924D836F6511794DE69AA51B931FA2ED /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C38DA49F4E06DFEEBEB70891D78122D /* ViewController.m */; };
+		9711A091CABDDEDF379C46879E93284D /* Benchmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C96373FA24D919BCDCC7EBC587C4088 /* Benchmark.swift */; };
 		9EC22D7E64565461AC2F2E357E9DE8AA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A1D8793D36CD078AAE5E1B2DEEA520 /* AppDelegate.swift */; };
 		A1F641F9B18E75010D1806000CD41BB4 /* Pods_Common_macOS_BeaconKitTests_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C669A7BD8A5BBDEA8799D22A94EC7C27 /* Pods_Common_macOS_BeaconKitTests_macOS.framework */; };
 		A7FA3147746CB49B512B29A04954C70E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 06BC091FEF3FBEC3CE4D5CF978F2FF2A /* Main.storyboard */; };
@@ -64,6 +66,7 @@
 		340281BCE3F232EE09953D7A290B75DE /* Beaconator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Beaconator.entitlements; sourceTree = "<group>"; };
 		35DAB0F1202FB13F863669624C41B39A /* BeaconKitSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BeaconKitSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F629D1619264EE37FF7146A6904E163 /* Pods_Common_iOS_BeaconKitSampleObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common_iOS_BeaconKitSampleObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4C96373FA24D919BCDCC7EBC587C4088 /* Benchmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Benchmark.swift; sourceTree = "<group>"; };
 		4DBC3AB48B756A366559974153453D0F /* EddystoneUrlParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EddystoneUrlParserTests.swift; sourceTree = "<group>"; };
 		532B743741D12355A8A95B18D05B9FB8 /* Pods_Common_iOS_BeaconKitTests_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common_iOS_BeaconKitTests_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		570A33141BAF2038A1FDCF4443C49998 /* Pods_Common_iOS_BeaconKitTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Common_iOS_BeaconKitTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -192,6 +195,7 @@
 		28AC8BEF7F3B6F2EEAECFBA4A2568E56 /* BeaconKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				4C96373FA24D919BCDCC7EBC587C4088 /* Benchmark.swift */,
 				2FD9CD5A4939FA223C8D7C1DEA9B64AE /* EddystoneUidParserTests.swift */,
 				4DBC3AB48B756A366559974153453D0F /* EddystoneUrlParserTests.swift */,
 				2D3C29E94748933E5DFD77BE20536D0C /* Info.plist */,
@@ -763,6 +767,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0544FEDC8D94FFDBEF5A3CAE3902F04D /* Benchmark.swift in Sources */,
 				BFA647E6C7BF016E20B5C5911E33FE05 /* EddystoneUidParserTests.swift in Sources */,
 				E274F55BDD8092B0BE036FE286243D46 /* EddystoneUrlParserTests.swift in Sources */,
 			);
@@ -781,6 +786,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9711A091CABDDEDF379C46879E93284D /* Benchmark.swift in Sources */,
 				5DA6CF180EF5CC3A4810DB9A6FBBB7A7 /* EddystoneUidParserTests.swift in Sources */,
 				BE3B08E79EC5CE073D6C37A4D97E9952 /* EddystoneUrlParserTests.swift in Sources */,
 			);

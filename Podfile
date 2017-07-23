@@ -23,7 +23,8 @@ abstract_target 'Common' do
     platform :osx, '10.12'
 
     target 'Beaconator'
-    target 'BeaconKitTests-macOS'
+    target 'BeaconKitTests-macOS' do 
+    end
   end
 end
 
