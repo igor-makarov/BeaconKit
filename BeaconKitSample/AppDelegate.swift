@@ -17,7 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BeaconScannerDelegate {
         BeaconScanner.shared.start()
         return true
     }
-
+    
+    func beaconScanner(_ beaconScanner: BeaconScanner, didDiscover beacon: Beacon) {
+        print("Discovered beacon: \(beacon)")
+    }
+    
     func applicationWillResignActive(_ application: UIApplication) {
     }
 
@@ -32,10 +36,4 @@ class AppDelegate: UIResponder, UIApplicationDelegate, BeaconScannerDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
     }
-    
-    func beaconScanner(_ beaconScanner: BeaconScanner, didDiscover beacon: Beacon) {
-        print("Discovered beacon: \(beacon)")
-    }
-    
-
 }

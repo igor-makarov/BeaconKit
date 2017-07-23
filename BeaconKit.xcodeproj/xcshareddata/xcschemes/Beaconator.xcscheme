@@ -8,29 +8,15 @@
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FE84EFB8B1425FC27E187E71878A58A2"
-               BuildableName = "BeaconKitSample.app"
-               BlueprintName = "BeaconKitSample"
-               ReferencedContainer = "container:BeaconKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FEF07A6018D14263D5030A4D82906C6C"
-               BuildableName = "BeaconKitTests.xctest"
-               BlueprintName = "BeaconKitTests"
+               BlueprintIdentifier = "A7658B47289D07F834B3212AD97E1DEB"
+               BuildableName = "Beaconator.app"
+               BlueprintName = "Beaconator"
                ReferencedContainer = "container:BeaconKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,9 +33,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FEF07A6018D14263D5030A4D82906C6C"
-               BuildableName = "BeaconKitTests.xctest"
-               BlueprintName = "BeaconKitTests"
+               BlueprintIdentifier = "786A31621F24AB2000BB7447"
+               BuildableName = "BeaconKitTests-macOS.xctest"
+               BlueprintName = "BeaconKitTests-macOS"
                ReferencedContainer = "container:BeaconKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,9 +43,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FEF07A6018D14263D5030A4D82906C6C"
-            BuildableName = "BeaconKitTests.xctest"
-            BlueprintName = "BeaconKitTests"
+            BlueprintIdentifier = "A7658B47289D07F834B3212AD97E1DEB"
+            BuildableName = "Beaconator.app"
+            BlueprintName = "Beaconator"
             ReferencedContainer = "container:BeaconKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -77,15 +63,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FEF07A6018D14263D5030A4D82906C6C"
-            BuildableName = "BeaconKitTests.xctest"
-            BlueprintName = "BeaconKitTests"
+            BlueprintIdentifier = "A7658B47289D07F834B3212AD97E1DEB"
+            BuildableName = "Beaconator.app"
+            BlueprintName = "Beaconator"
             ReferencedContainer = "container:BeaconKit.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -95,15 +82,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FEF07A6018D14263D5030A4D82906C6C"
-            BuildableName = "BeaconKitTests.xctest"
-            BlueprintName = "BeaconKitTests"
+            BlueprintIdentifier = "A7658B47289D07F834B3212AD97E1DEB"
+            BuildableName = "Beaconator.app"
+            BlueprintName = "Beaconator"
             ReferencedContainer = "container:BeaconKit.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

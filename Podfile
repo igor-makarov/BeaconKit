@@ -2,20 +2,29 @@
 
 install! 'cocoapods',
          :deterministic_uuids => false
-platform :ios, '9.0'
 use_frameworks!
 
 workspace 'BeaconKit'
 project 'BeaconKit.xcodeproj'
 
-abstract_target 'BeaconKitCommon' do
+abstract_target 'Common' do
   pod 'BeaconKit', :path => './'
-  pod 'SwiftLint'
+  abstract_target 'iOS' do
+    platform :ios, '9.0'
+    pod 'SwiftLint'
 
-  target 'BeaconKitTests' do 
+    target 'BeaconKitTests-iOS' do 
+    end
+    target 'BeaconKitSample'
+    target 'BeaconKitSampleObjC'
   end
-  target 'BeaconKitSample'
-  target 'BeaconKitSampleObjC'
+
+  abstract_target 'macOS' do
+    platform :osx, '10.12'
+
+    target 'Beaconator'
+    target 'BeaconKitTests-macOS'
+  end
 end
 
 post_install do |installer_representation|

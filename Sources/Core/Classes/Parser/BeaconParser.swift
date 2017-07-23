@@ -14,11 +14,6 @@ public enum BeaconParsingError: Error {
     case parseError
 }
 
-public enum BluetoothAdvertisement {
-    case service(CBUUID, Data)
-    case manufacturer(Data)
-}
-
 class BeaconParser {
     let recognizedBeaconTypes: [Beacon.Type]
     
@@ -43,6 +38,20 @@ class BeaconParser {
                 } catch { }
             }
             return nil
+        }
+    }
+}
+
+public enum BluetoothAdvertisement: CustomStringConvertible {
+    case service(CBUUID, Data)
+    case manufacturer(Data)
+    
+    public var description: String {
+        switch self {
+        case .service(let identifier, let data):
+            return "Service: \(identifier) data: \(data.toString())"
+        case .manufacturer(let data):
+            return "Manufacturer data: \(data.toString())"
         }
     }
 }

@@ -32,8 +32,11 @@ public class BeaconScanner: NSObject {
     
     public func start(restoreIdentifier: String? = nil) {
         if let restoreIdentifier = restoreIdentifier {
-            _centralManager = CBCentralManager(delegate: self, queue: nil,
-                                               options: [CBCentralManagerOptionRestoreIdentifierKey: restoreIdentifier])
+//            guard #available(OSX 10.13, *) else {
+//                fatalError("Cannot use restore identifiers on macOS < 10.13")
+//            }
+//            _centralManager = CBCentralManager(delegate: self, queue: nil,
+//                                               options: [CBCentralManagerOptionRestoreIdentifierKey: restoreIdentifier])
         } else {
             _centralManager = CBCentralManager(delegate: self, queue: nil,
                                                options: nil)
@@ -57,7 +60,13 @@ extension BeaconScanner: CBCentralManagerDelegate {
     }
     
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        let identifier = peripheral.identifier
+        let identifier: UUID
+        if #available(OSX 10.13, *) {
+            identifier = peripheral.identifier
+        } else {
+            let uuid = peripheral.perform(NSSelectorFromString("identifier")).takeUnretainedValue() as! UUID
+            identifier = UUID(uuidString: uuid.uuidString)!
+        }
         
         let rssi = RSSI.intValue
         
