@@ -10,7 +10,7 @@ public class EddystoneUidBeacon: Beacon {
     // swiftlint:disable:next force_try
     static let _layout = try! ParserLayout("m:0-0=00,p:1-1,i:2-11,i:12-17")
     override open class var layout: ParserLayout { return _layout }
-    override open class var serviceUuid: CBUUID { return CBUUID(string: "FEAA") }
+    override open class var serviceUuid: CBUUID? { return CBUUID(string: "FEAA") }
 
     public private(set) lazy var namespace: String = self.identifiers[0]
     public private(set) lazy var instance: String = self.identifiers[1]
@@ -24,7 +24,7 @@ public class EddystoneUrlBeacon: Beacon {
     // swiftlint:disable:next force_try
     static let _layout = try! ParserLayout("m:0-0=10,p:1-1,i:2-19")
     override open class var layout: ParserLayout { return _layout }
-    override open class var serviceUuid: CBUUID { return CBUUID(string: "FEAA") }
+    override open class var serviceUuid: CBUUID? { return CBUUID(string: "FEAA") }
 
     override public var identifiers: [String] { return [self.url?.absoluteString ?? ""] }
     
@@ -57,8 +57,8 @@ public class EddystoneUrlBeacon: Beacon {
         return "\(identifier) RX/TX:\(-rssi)/\(-txPower) Eddystone URL: \(url)"
     }
     
-    public required init(_ data: Data, rssi: Int, identifier: UUID) throws {
-        try super.init(data, rssi: rssi, identifier: identifier)
+    public required init(_ advertisement: BluetoothAdvertisement, rssi: Int, identifier: UUID) throws {
+        try super.init(advertisement, rssi: rssi, identifier: identifier)
     }
     
     

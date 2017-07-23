@@ -14,6 +14,11 @@ public enum BeaconParsingError: Error {
     case parseError
 }
 
+public enum BluetoothAdvertisement {
+    case service(CBUUID, Data)
+    case manufacturer(Data)
+}
+
 class BeaconParser {
     let recognizedBeaconTypes: [Beacon.Type]
     
@@ -22,15 +27,19 @@ class BeaconParser {
     }
 
     func beacons(from advertisementData: [AnyHashable: Any], rssi: Int, identifier: UUID) throws -> [Beacon] {
-        let advertisementsFound = try advertisements(from: advertisementData)
-        return try beacons(advertisements: advertisementsFound, rssi: rssi, identifier: identifier)
+        do {
+            let advertisementsFound = try advertisements(from: advertisementData)
+            return beacons(advertisements: advertisementsFound, rssi: rssi, identifier: identifier)
+        } catch {
+            return []
+        }
     }
     
-    func beacons(advertisements: [Data], rssi: Int, identifier: UUID) throws -> [Beacon] {
-        return advertisements.flatMap { data -> Beacon? in
+    func beacons(advertisements: [BluetoothAdvertisement], rssi: Int, identifier: UUID) -> [Beacon] {
+        return advertisements.flatMap { advertisement -> Beacon? in
             for beaconType in self.recognizedBeaconTypes {
                 do {
-                    return try beaconType.init(data, rssi: rssi, identifier: identifier)
+                    return try beaconType.init(advertisement, rssi: rssi, identifier: identifier)
                 } catch { }
             }
             return nil
@@ -38,19 +47,22 @@ class BeaconParser {
     }
 }
 
+fileprivate func advertisements(from advertisementData: [AnyHashable: Any]) throws -> [BluetoothAdvertisement] {
+    var result = [BluetoothAdvertisement]()
 
-fileprivate func advertisements(from advertisementData: [AnyHashable: Any]) throws -> [Data] {
-    let serviceData = advertisementData[CBAdvertisementDataServiceDataKey] as? [AnyHashable: Any] ?? [:]
     let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data
-    let manufacturerDataArray: [Data]
     if let manufacturerData = manufacturerData {
-        manufacturerDataArray = [manufacturerData]
-    } else {
-        manufacturerDataArray = []
+        result.append(.manufacturer(manufacturerData))
     }
-    return serviceData
-        .filter { $1 is Data }
-        .flatMap { _, value -> Data? in
-            return value as? Data
-    } + manufacturerDataArray
+    
+    if let serviceData = advertisementData[CBAdvertisementDataServiceDataKey] as? [AnyHashable: Any] {
+        result += serviceData.flatMap { key, value -> BluetoothAdvertisement? in
+            if let key = key as? CBUUID, let value = value as? Data {
+                return .service(key, value)
+            }
+            return nil
+        }
+    }
+    
+    return result    
 }

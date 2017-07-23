@@ -115,6 +115,8 @@ class TxPowerFragment: IntegerFragment { }
 
 class BeaconTypeFragment: PatternMatchingFragment {  }
 
+class ServiceTypeFragment: PatternMatchingFragment {  }
+
 class FieldFragment: LayoutFragment {
     let canBeShorter: Bool = true
     func getValue(_ data: Data) throws -> Data {

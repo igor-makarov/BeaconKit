@@ -6,18 +6,25 @@
 //
 
 import XCTest
+import CoreBluetooth
 @testable import BeaconKit
 
 // swiftlint:disable force_try
 // swiftlint:disable force_unwrapping
 
 class ParserTests: XCTestCase {
-    func testExample() throws {
+    override func setUp() {
+        super.setUp()
+        continueAfterFailure = false
+    }
+    
+    func testExample() {
         let beaconParser = BeaconParser([EddystoneUidBeacon.self])
         let data = Data.from(hex: "00e70001020304050607080901020304050A000000000000000000000000000000000000000000000000000000000000000000")
         let rssi = -25
         let identifier = UUID()
-        let beacons = try beaconParser.beacons(advertisements: [data], rssi: rssi, identifier: identifier)
+        let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
+        let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
         XCTAssertEqual(beacons.count, 1)
         
         let beacon = beacons[0] as! EddystoneUidBeacon
@@ -30,13 +37,14 @@ class ParserTests: XCTestCase {
         XCTAssertEqual(beacon.beaconData.fields, [])
     }
     
-    func testWhenDataTooSmall() throws {
+    func testWhenDataTooSmall() {
         let beaconParser = BeaconParser([EddystoneUidBeacon.self])
         let data = Data.from(hex: "00870869")
         
         let rssi = -25
         let identifier = UUID()
-        let beacons = try beaconParser.beacons(advertisements: [data], rssi: rssi, identifier: identifier)
+        let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
+        let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
         XCTAssert(beacons.isEmpty)
     }
 }

@@ -17,7 +17,7 @@ public struct BeaconRawData {
 open class Beacon: NSObject {
 
     open class var layout: ParserLayout { fatalError() }
-    open class var serviceUuid: CBUUID { fatalError() }
+    open class var serviceUuid: CBUUID? {  return nil }
 
     public let rssi: Int
     public let identifier: UUID
@@ -28,10 +28,23 @@ open class Beacon: NSObject {
     private lazy var _identifiers: [String] = self.beaconData.identifiers.map { $0.toString() }
     public var identifiers: [String] { return _identifiers }
 
-    public required init(_ data: Data, rssi: Int, identifier: UUID) throws {
+    public required init(_ advertisement: BluetoothAdvertisement, rssi: Int, identifier: UUID) throws {
         self.rssi = rssi
         self.identifier = identifier
-        self.beaconData = try type(of: self).layout.parse(data)
+        let instanceType = type(of: self)
+        let data = try instanceType.validateAndGetData(advertisement: advertisement)
+        self.beaconData = try instanceType.layout.parse(data)
+    }
+
+    class func validateAndGetData(advertisement: BluetoothAdvertisement) throws -> Data {
+        switch advertisement {
+        case .manufacturer(let data):
+            return data
+        case .service(let serviceUuid, let data) where serviceUuid == self.serviceUuid:
+            return data
+        default:
+            throw BeaconParsingError.unrecognizedBeaconType
+        }
     }
     
     public var distanceMeters: Double {
