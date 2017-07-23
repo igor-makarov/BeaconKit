@@ -13,7 +13,7 @@ import CoreBluetooth
 
 class EddystoneUrlParserTests: XCTestCase {
     let beaconParser = BeaconParser([EddystoneUrlBeacon.self])
-
+    
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
@@ -45,7 +45,7 @@ class EddystoneUrlParserTests: XCTestCase {
         let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
         XCTAssert(beacons.isEmpty)
     }
-
+    
     func testWrongBeaconType() {
         let data = Data.from(hex: "25e70001020304050607080901020304050A")
         
@@ -65,7 +65,7 @@ class EddystoneUrlParserTests: XCTestCase {
         let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
         XCTAssert(beacons.isEmpty)
     }
-
+    
     func testDataTooSmall() {
         let data = Data.from(hex: "00870869")
         
@@ -101,11 +101,30 @@ class EddystoneUrlParserTests: XCTestCase {
                 let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
                 XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
                 let beacon = beacons[0] as! EddystoneUrlBeacon
-
-                print(beacon.url)
-                
+                XCTAssertTrue(beacon.url.absoluteString != "")
             }
         }
+    }
     
+    func testBenchmark() {
+        let charHexes = Array(UInt8("a".utf8.first!)...UInt8("z".utf8.first!))
+        
+        measure {
+            for prefix: UInt8 in 0...3 {
+                for suffix: UInt8 in 0...13 {
+                    for _ in 0...100 {
+                        let letters = (0...16).map { _ in
+                            charHexes[Int(arc4random_uniform(UInt32(charHexes.count)))]
+                        }
+                        let data = Data(bytes: [0x10, 0xe7, prefix] + letters + [suffix])
+                        let rssi = -25
+                        let identifier = UUID()
+                        let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
+                        let beacons = self.beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
+                        XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
+                    }
+                }
+            }
+        }
     }
 }

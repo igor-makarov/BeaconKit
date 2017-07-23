@@ -31,6 +31,9 @@ class BeaconParser {
     }
     
     func beacons(advertisements: [BluetoothAdvertisement], rssi: Int, identifier: UUID) -> [Beacon] {
+//        for i in 0...10000 {
+//            _ = i*i
+//        }
         return advertisements.flatMap { advertisement -> Beacon? in
             for beaconType in self.recognizedBeaconTypes {
                 do {
