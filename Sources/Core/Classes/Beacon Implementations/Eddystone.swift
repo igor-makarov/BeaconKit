@@ -29,7 +29,8 @@ public class EddystoneUrlBeacon: EddystoneBeacon {
     static let _layout = try! ParserLayout("m:0-0=10,p:1-1,i:2-19")
     override open class var layout: ParserLayout { return _layout }
 
-    override public var identifiers: [String] { return [self.url?.absoluteString ?? ""] }
+    override public var identifiers: [String] { return [self.url.absoluteString] }
+    public var url: URL { return urlGenerated! }
     
     static let _schemePrefixes = [
         "http://www.",
@@ -56,16 +57,19 @@ public class EddystoneUrlBeacon: EddystoneBeacon {
     ]
 
     override public var description: String {
-        let url = self.url?.absoluteString ?? "(null)"
+        let url = self.url.absoluteString //?? "(null)"
         return "\(identifier) RX/TX:\(-rssi)/\(-txPower) Eddystone URL: \(url)"
     }
     
     public required init(_ advertisement: BluetoothAdvertisement, rssi: Int, identifier: UUID) throws {
         try super.init(advertisement, rssi: rssi, identifier: identifier)
+        guard self.urlGenerated != nil else {
+            throw BeaconParsingError.parseError
+        }
     }
     
     
-    public private(set) lazy var url: URL? = {
+    private lazy var urlGenerated: URL? = {
         guard let data = self.beaconData.identifiers.first else {  fatalError() }
         var urlString = ""
 
