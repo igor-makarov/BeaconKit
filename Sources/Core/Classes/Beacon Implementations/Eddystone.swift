@@ -6,11 +6,15 @@
 
 import CoreBluetooth
 
-public class EddystoneUidBeacon: Beacon {
+public class EddystoneBeacon: Beacon {
+    override open class var serviceUuid: CBUUID? { return CBUUID(string: "FEAA") }
+    override open class var advertisementType: AdvertisementType { return .service }
+}
+
+public class EddystoneUidBeacon: EddystoneBeacon {
     // swiftlint:disable:next force_try
     static let _layout = try! ParserLayout("m:0-0=00,p:1-1,i:2-11,i:12-17")
     override open class var layout: ParserLayout { return _layout }
-    override open class var serviceUuid: CBUUID? { return CBUUID(string: "FEAA") }
 
     public private(set) lazy var namespace: String = self.identifiers[0]
     public private(set) lazy var instance: String = self.identifiers[1]
@@ -20,11 +24,10 @@ public class EddystoneUidBeacon: Beacon {
     }
 }
 
-public class EddystoneUrlBeacon: Beacon {
+public class EddystoneUrlBeacon: EddystoneBeacon {
     // swiftlint:disable:next force_try
     static let _layout = try! ParserLayout("m:0-0=10,p:1-1,i:2-19")
     override open class var layout: ParserLayout { return _layout }
-    override open class var serviceUuid: CBUUID? { return CBUUID(string: "FEAA") }
 
     override public var identifiers: [String] { return [self.url?.absoluteString ?? ""] }
     

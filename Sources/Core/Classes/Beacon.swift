@@ -15,9 +15,14 @@ public struct BeaconRawData {
 
 @objc
 open class Beacon: NSObject {
+    public enum AdvertisementType {
+        case service
+        case manufacturer
+    }
 
     open class var layout: ParserLayout { fatalError() }
-    open class var serviceUuid: CBUUID? {  return nil }
+    open class var advertisementType: AdvertisementType { fatalError() }
+    open class var serviceUuid: CBUUID? { return nil }
 
     public let rssi: Int
     public let identifier: UUID
@@ -38,9 +43,9 @@ open class Beacon: NSObject {
 
     class func validateAndGetData(advertisement: BluetoothAdvertisement) throws -> Data {
         switch advertisement {
-        case .manufacturer(let data):
+        case .manufacturer(let data) where advertisementType == .manufacturer:
             return data
-        case .service(let serviceUuid, let data) where serviceUuid == self.serviceUuid:
+        case .service(let serviceUuid, let data) where serviceUuid == self.serviceUuid && advertisementType == .service:
             return data
         default:
             throw BeaconParsingError.unrecognizedBeaconType
