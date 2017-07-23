@@ -103,12 +103,12 @@ class EddystoneUidParserTests: XCTestCase {
             let beacons = self.functionBeingMeasured(advertisements: [advertisement], rssi: rssi, identifier: identifier)
             XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
         }
-        Benchmark.assert(key: "Benchmark2", expected: 0.030)
+//        Benchmark.assert(key: "Benchmark2", expected: 0.030)
 
     }
     
     func functionBeingMeasured(advertisements: [BluetoothAdvertisement], rssi: Int, identifier: UUID) -> [Beacon] {
-        let benchmark = Benchmark(name: "Benchmark2")
+//        let benchmark = Benchmark(name: "Benchmark2")
         for _ in 0...2000 {
             _ = self.beaconParser.beacons(advertisements: advertisements, rssi: rssi, identifier: identifier)
         }
