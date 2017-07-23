@@ -106,7 +106,7 @@ class EddystoneUrlParserTests: XCTestCase {
         }
     }
     
-    func testBenchmark() {
+    func DISABLE_testBenchmark() {
         let charHexes = Array(UInt8("a".utf8.first!)...UInt8("z".utf8.first!))
         for prefix: UInt8 in 0...3 {
             for suffix: UInt8 in 0...13 {

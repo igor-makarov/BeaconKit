@@ -91,7 +91,7 @@ class EddystoneUidParserTests: XCTestCase {
         }
     }
     
-    func testBenchmark() {
+    func DISABLE_testBenchmark() {
         for _ in 0...50 {
             let bytes = (0...20).map { _ in UInt8(arc4random_uniform(256)) }
             let data = Data(bytes: [0] + bytes)
