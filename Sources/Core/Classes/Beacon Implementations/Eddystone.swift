@@ -30,16 +30,18 @@ public class EddystoneUrlBeacon: EddystoneBeacon {
     override open class var layout: ParserLayout { return _layout }
 
     override public var identifiers: [String] { return [self.url.absoluteString] }
-    public var url: URL { return urlGenerated! }
+    public private(set) lazy var url: URL = try! self.urlGenerated()
+    
+    static let _validEncodingCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=`".characters)
     
     static let _schemePrefixes = [
         "http://www.",
-        "https:/www.",
+        "https://www.",
         "http://",
         "https://"
     ]
     
-    static let _urlEncodings = [
+    static let _urlExpansions = [
         ".com/",
         ".org/",
         ".edu/",
@@ -57,41 +59,48 @@ public class EddystoneUrlBeacon: EddystoneBeacon {
     ]
 
     override public var description: String {
-        let url = self.url.absoluteString //?? "(null)"
+        let url = self.url.absoluteString
         return "\(identifier) RX/TX:\(-rssi)/\(-txPower) Eddystone URL: \(url)"
     }
     
     public required init(_ advertisement: BluetoothAdvertisement, rssi: Int, identifier: UUID) throws {
         try super.init(advertisement, rssi: rssi, identifier: identifier)
-        guard self.urlGenerated != nil else {
-            throw BeaconParsingError.parseError
-        }
+        _ = try self.urlGenerated()
     }
     
     
-    private lazy var urlGenerated: URL? = {
-        guard let data = self.beaconData.identifiers.first else {  fatalError() }
-        var urlString = ""
-
-        for (offset, byte) in data.enumerated() {
-            switch offset {
-            case 0:
-                if Int(byte) < EddystoneUrlBeacon._schemePrefixes.count {
-                    urlString += EddystoneUrlBeacon._schemePrefixes[Int(byte)]
-                }
-            case 1...data.count-1:
-                if Int(byte) < EddystoneUrlBeacon._urlEncodings.count {
-                    urlString += EddystoneUrlBeacon._urlEncodings[Int(byte)]
-                } else {
-                    let unicode = UnicodeScalar(byte)
-                    let character = Character(unicode)
-                    urlString.append(character)
-                }
+    private func urlGenerated() throws -> URL {
+        guard let data = self.beaconData.identifiers.first, data.count > 1 else { throw BeaconParsingError.parseError }
+        
+        let prefix = try urlPrefix()
+        let subsequentData = data.subdata(in: 1..<data.count)
+        let subsequentCharacters = try subsequentData.map { (byte: UInt8) -> String in
+            let character = Character(UnicodeScalar(byte))
+            if EddystoneUrlBeacon._validEncodingCharacters.contains(character) {
+                return String(character)
+            }
+            switch Int(byte) {
+            case 0..<EddystoneUrlBeacon._urlExpansions.count:
+                return EddystoneUrlBeacon._urlExpansions[Int(byte)]
             default:
-                break
+                throw BeaconParsingError.parseError
             }
         }
         
-        return URL(string: urlString)
-    }()
+        let result = prefix + subsequentCharacters.joined()
+        
+        guard let url = URL(string: result) else { throw BeaconParsingError.parseError }
+        return url
+    }
+    
+    private func urlPrefix() throws -> String {
+        guard let data = self.beaconData.identifiers.first else { throw BeaconParsingError.parseError }
+        guard let prefix = data.first else { throw BeaconParsingError.parseError }
+        switch Int(prefix) {
+        case 0..<EddystoneUrlBeacon._schemePrefixes.count:
+            return EddystoneUrlBeacon._schemePrefixes[Int(prefix)]
+        default:
+            throw BeaconParsingError.parseError
+        }
+    }
 }

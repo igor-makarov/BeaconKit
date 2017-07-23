@@ -88,4 +88,24 @@ class EddystoneUrlParserTests: XCTestCase {
             XCTAssertEqual(beacons.count, 0, "failed on data: \(data.toString())")
         }
     }
+    
+    func testUrlDecodingValidation() {
+        for prefix: UInt8 in 0...3 {
+            for suffix: UInt8 in 0...13 {
+                let data = Data(bytes: [0x10, 0xe7, prefix]) +
+                    Data.from(hex: "636F636F616361737473") +
+                    Data(bytes: [suffix])
+                let rssi = -25
+                let identifier = UUID()
+                let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
+                let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
+                XCTAssertEqual(beacons.count, 1, "failed on data: \(data.toString())")
+                let beacon = beacons[0] as! EddystoneUrlBeacon
+
+                print(beacon.url)
+                
+            }
+        }
+    
+    }
 }
