@@ -24,4 +24,3 @@ class AppDelegate: NSObject, NSApplicationDelegate, BeaconScannerDelegate {
     func applicationWillTerminate(_ aNotification: Notification) {
     }
 }
-

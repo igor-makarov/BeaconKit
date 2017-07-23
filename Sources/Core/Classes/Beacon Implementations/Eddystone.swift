@@ -30,6 +30,7 @@ public class EddystoneUrlBeacon: EddystoneBeacon {
     override open class var layout: ParserLayout { return _layout }
 
     override public var identifiers: [String] { return [self.url.absoluteString] }
+    // swiftlint:disable:next force_try
     public private(set) lazy var url: URL = try! self.urlGenerated()
     
     static let _validEncodingCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=`".characters)

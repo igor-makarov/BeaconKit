@@ -65,6 +65,7 @@ extension BeaconScanner: CBCentralManagerDelegate {
             identifier = peripheral.identifier
         } else {
             let uuid = peripheral.perform(NSSelectorFromString("identifier")).takeUnretainedValue() as! UUID
+            // swiftlint:disable:next force_unwrapping
             identifier = UUID(uuidString: uuid.uuidString)!
         }
         
