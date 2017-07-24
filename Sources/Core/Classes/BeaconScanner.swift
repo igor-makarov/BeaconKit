@@ -32,6 +32,8 @@ public class BeaconScanner: NSObject {
     
     public func start(restoreIdentifier: String? = nil) {
         if let restoreIdentifier = restoreIdentifier {
+            _ = restoreIdentifier
+            fatalError("restore identifiers not supported yet")
 //            guard #available(OSX 10.13, *) else {
 //                fatalError("Cannot use restore identifiers on macOS < 10.13")
 //            }
