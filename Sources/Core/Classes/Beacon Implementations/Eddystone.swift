@@ -9,6 +9,10 @@ import CoreBluetooth
 public class EddystoneBeacon: Beacon {
     override open class var serviceUuid: CBUUID? { return CBUUID(string: "FEAA") }
     override open class var advertisementType: AdvertisementType { return .service }
+    // Eddystone TX value is zeroed at 0m so need to subtract 41dB
+    // to get 1m TX power
+    // [reference]: https://github.com/google/eddystone/tree/master/eddystone-uid#tx-power
+    override public var txPower: Int { return super.txPower - 41 }
 }
 
 public class EddystoneUidBeacon: EddystoneBeacon {

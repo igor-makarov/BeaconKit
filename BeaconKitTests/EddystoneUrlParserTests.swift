@@ -20,7 +20,7 @@ class EddystoneUrlParserTests: XCTestCase {
     }
     
     func testParsingValidBeacon() {
-        let data = Data.from(hex: "10E703636F636F61636173747300")
+        let data = Data.from(hex: "100203636F636F61636173747300")
         let rssi = -25
         let identifier = UUID()
         let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
@@ -30,7 +30,7 @@ class EddystoneUrlParserTests: XCTestCase {
         let beacon = beacons[0] as! EddystoneUrlBeacon
         XCTAssertEqual(beacon.rssi, rssi)
         XCTAssertEqual(beacon.identifier, identifier)
-        XCTAssertEqual(beacon.txPower, -25)
+        XCTAssertEqual(beacon.txPower, -39)
         XCTAssertEqual(beacon.beaconType, 0x10)
         XCTAssertEqual(beacon.url, URL(string: "https://cocoacasts.com/"))
         XCTAssertEqual(beacon.beaconData.fields, [])
