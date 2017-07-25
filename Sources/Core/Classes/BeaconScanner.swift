@@ -71,7 +71,7 @@ extension BeaconScanner: CBCentralManagerDelegate {
             identifier = UUID(uuidString: uuid.uuidString)!
         }
         
-        let rssi = RSSI.intValue
+        let rssi = RSSI.intValue == 127 ? 0 : RSSI.intValue
         
         guard let parsedBeacons = try? _beaconParser.beacons(from: advertisementData, rssi: rssi, identifier: identifier) else { return }
         

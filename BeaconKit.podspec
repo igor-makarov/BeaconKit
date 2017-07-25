@@ -4,7 +4,7 @@ filename = File.basename(__FILE__, '.podspec')
 Pod::Spec.new do |s|
 
   s.name         = "#{filename}"
-  s.version      = '1.0.1'
+  s.version      = '1.0.2'
   s.summary      = 'Beacon detection framework using CoreBluetooth'
 
   s.description  = <<~DESC

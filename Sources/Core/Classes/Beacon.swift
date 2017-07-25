@@ -54,10 +54,10 @@ open class Beacon: NSObject {
     
     public var distanceMeters: Double {
         if rssi >= 0 {
-            return 0
+            return .infinity
         }
         
-        let ratio: Double = Double(rssi) / Double(txPower)
+        let ratio = Double(rssi) / Double(txPower)
         if ratio < 1 {
             return pow(ratio, 10)
         } else {
