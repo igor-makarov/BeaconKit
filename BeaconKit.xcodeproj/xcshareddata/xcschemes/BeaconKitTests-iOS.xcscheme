@@ -33,7 +33,7 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FB81A1D6E79A01D76CF8827F"
+               BlueprintIdentifier = "16DA79CE82D213F397B6FE88"
                BuildableName = "BeaconKit-iOS-Unit-Tests.xctest"
                BlueprintName = "BeaconKit-iOS-Unit-Tests"
                ReferencedContainer = "container:Pods/Pods.xcodeproj">
