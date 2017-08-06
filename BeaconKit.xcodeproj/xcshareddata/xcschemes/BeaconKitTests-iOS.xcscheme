@@ -8,7 +8,7 @@
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"
-            buildForRunning = "NO"
+            buildForRunning = "YES"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
@@ -17,20 +17,6 @@
                BlueprintIdentifier = "FE84EFB8B1425FC27E187E71878A58A2"
                BuildableName = "BeaconKitSample.app"
                BlueprintName = "BeaconKitSample"
-               ReferencedContainer = "container:BeaconKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01EF58BC377630B30428B68A07610C36"
-               BuildableName = "BeaconKitTests-iOS.xctest"
-               BlueprintName = "BeaconKitTests-iOS"
                ReferencedContainer = "container:BeaconKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,19 +33,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01EF58BC377630B30428B68A07610C36"
-               BuildableName = "BeaconKitTests-iOS.xctest"
-               BlueprintName = "BeaconKitTests-iOS"
-               ReferencedContainer = "container:BeaconKit.xcodeproj">
+               BlueprintIdentifier = "FB81A1D6E79A01D76CF8827F"
+               BuildableName = "BeaconKit-iOS-Unit-Tests.xctest"
+               BlueprintName = "BeaconKit-iOS-Unit-Tests"
+               ReferencedContainer = "container:Pods/Pods.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "01EF58BC377630B30428B68A07610C36"
-            BuildableName = "BeaconKitTests-iOS.xctest"
-            BlueprintName = "BeaconKitTests-iOS"
+            BlueprintIdentifier = "FE84EFB8B1425FC27E187E71878A58A2"
+            BuildableName = "BeaconKitSample.app"
+            BlueprintName = "BeaconKitSample"
             ReferencedContainer = "container:BeaconKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -80,9 +66,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "01EF58BC377630B30428B68A07610C36"
-            BuildableName = "BeaconKitTests-iOS.xctest"
-            BlueprintName = "BeaconKitTests-iOS"
+            BlueprintIdentifier = "FE84EFB8B1425FC27E187E71878A58A2"
+            BuildableName = "BeaconKitSample.app"
+            BlueprintName = "BeaconKitSample"
             ReferencedContainer = "container:BeaconKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

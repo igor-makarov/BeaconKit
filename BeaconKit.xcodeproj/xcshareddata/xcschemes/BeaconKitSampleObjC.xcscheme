@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "785322EA1F20AD9000C831C9"
+               BlueprintIdentifier = "98E02E1BFA7E94A50B3803B7D55A3F2E"
                BuildableName = "BeaconKitSampleObjC.app"
                BlueprintName = "BeaconKitSampleObjC"
                ReferencedContainer = "container:BeaconKit.xcodeproj">
@@ -57,7 +57,7 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "785322EA1F20AD9000C831C9"
+            BlueprintIdentifier = "98E02E1BFA7E94A50B3803B7D55A3F2E"
             BuildableName = "BeaconKitSampleObjC.app"
             BlueprintName = "BeaconKitSampleObjC"
             ReferencedContainer = "container:BeaconKit.xcodeproj">

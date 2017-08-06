@@ -8,13 +8,13 @@ workspace 'BeaconKit'
 project 'BeaconKit.xcodeproj'
 
 abstract_target 'Common' do
-  pod 'BeaconKit', :path => './'
+  pod 'BeaconKit', :path => './', :testspecs => ['Tests']
   abstract_target 'iOS' do
     platform :ios, '9.0'
     pod 'SwiftLint'
 
-    target 'BeaconKitTests-iOS' do 
-    end
+    # target 'BeaconKitTests-iOS' do 
+    # end
     target 'BeaconKitSample'
     target 'BeaconKitSampleObjC'
   end
@@ -23,8 +23,8 @@ abstract_target 'Common' do
     platform :osx, '10.12'
 
     target 'Beaconator'
-    target 'BeaconKitTests-macOS' do 
-    end
+    # target 'BeaconKitTests-macOS' do 
+    # end
   end
 end
 
