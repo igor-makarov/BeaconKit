@@ -37,18 +37,28 @@ open class Beacon: NSObject {
         self.rssi = rssi
         self.identifier = identifier
         let instanceType = type(of: self)
-        let data = try instanceType.validateAndGetData(advertisement: advertisement)
+        guard let data = instanceType.validateAndGetData(advertisement: advertisement) else { throw BeaconParsingError.unrecognizedBeaconType }
         self.beaconData = try instanceType.layout.parse(data)
     }
 
-    class func validateAndGetData(advertisement: BluetoothAdvertisement) throws -> Data {
+    public class func shouldAttemptParsing(advertisement: BluetoothAdvertisement) -> Bool {
+        guard let data = self.validateAndGetData(advertisement: advertisement) else { return false }
+        for matchingFragment in self.layout.fragments.flatMap({ $0 as? PatternMatchingFragment }) {
+            if !matchingFragment.validate(data) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    class func validateAndGetData(advertisement: BluetoothAdvertisement) -> Data? {
         switch advertisement {
         case .manufacturer(let data) where advertisementType == .manufacturer:
             return data
         case .service(let serviceUuid, let data) where serviceUuid == self.serviceUuid && advertisementType == .service:
             return data
         default:
-            throw BeaconParsingError.unrecognizedBeaconType
+            return nil
         }
     }
     

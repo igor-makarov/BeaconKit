@@ -109,6 +109,12 @@ class PatternMatchingFragment: IntegerFragment {
         if let match = match, match != subdata { throw BeaconParsingError.fieldDoesNotMatch }
         return result
     }
+    
+    public func validate(_ data: Data) -> Bool {
+        let subdata = data.subdata(in: (start..<end + 1))
+        if let match = match, match != subdata { return false }
+        return true
+    }
 }
 
 class TxPowerFragment: IntegerFragment { }

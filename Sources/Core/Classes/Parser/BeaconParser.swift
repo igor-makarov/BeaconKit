@@ -36,6 +36,7 @@ class BeaconParser {
 //        }
         return advertisements.flatMap { advertisement -> Beacon? in
             for beaconType in self.recognizedBeaconTypes {
+                guard beaconType.shouldAttemptParsing(advertisement: advertisement) else { continue }
                 do {
                     return try beaconType.init(advertisement, rssi: rssi, identifier: identifier)
                 } catch { }
