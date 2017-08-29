@@ -4,6 +4,8 @@
 //  Created by Igor Makarov on 19/07/2017.
 //
 
+import Foundation
+
 // MARK: Integer readers, Swift >=3.2
 #if swift(>=3.2)
 @available(swift, introduced: 3.2)

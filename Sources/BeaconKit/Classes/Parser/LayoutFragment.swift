@@ -4,6 +4,8 @@
 //  Created by Igor Makarov on 19/07/2017.
 //
 
+import Foundation
+
 class LayoutFragment {
     let start: Int
     let end: Int

@@ -5,6 +5,8 @@
 //  
 //
 
+import Foundation
+
 #if !swift(>=3.2)
 
 // MARK: Integer readers, Swift 3.1
