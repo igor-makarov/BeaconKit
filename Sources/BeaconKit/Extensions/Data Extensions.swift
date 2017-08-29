@@ -22,10 +22,10 @@ extension Data {
     static func from(hex: String) -> Data {
         var hex = hex
         var data = Data()
-        while hex.characters.count > 0 {
+        while hex.characters.count >= 2 {
             let next2CharsIndex = hex.index(hex.startIndex, offsetBy: 2)
-            let c = String(hex[..<next2CharsIndex])
-            hex = String(hex[next2CharsIndex...])
+            let c: String = String(hex[hex.startIndex..<next2CharsIndex])
+            hex = String(hex[next2CharsIndex..<hex.endIndex])
             var ch: UInt32 = 0
             Scanner(string: c).scanHexInt32(&ch)
             var char = UInt8(ch)
