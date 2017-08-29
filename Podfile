@@ -32,5 +32,8 @@ post_install do |installer_representation|
   pods_project = installer_representation.pods_project
 
   pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = ENV['SWIFT_VERSION'] || File.open(".swift-version", "rb").read
+    end
   end
 end

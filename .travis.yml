@@ -1,10 +1,12 @@
 before_script:
   - echo "SWIFT_VERSION=$SWIFT_VERSION.0" > Base.xcconfig 
+  - echo "$SWIFT_VERSION.0" > .swift-version
   - cat Base.xcconfig
   - swift --version
 
 script:
   - Scripts/ci_phases/01_lint_project.sh
+  - bundle exec pod lib lint --skip-tests
   - Scripts/ci_phases/02_run_tests_macos.sh
   - travis_retry Scripts/ci_phases/03_run_tests_ios.sh
   - swift build -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
