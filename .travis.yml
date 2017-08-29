@@ -1,3 +1,11 @@
+before_script:
+  - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
+  - cat Base.xcconfig
+script:
+  - Scripts/ci_phases/01_lint_project.sh
+  - Scripts/ci_phases/02_run_tests_macos.sh
+  - travis_retry Scripts/ci_phases/03_run_tests_ios.sh
+
 matrix:
   include:
     - os: osx
@@ -5,36 +13,13 @@ matrix:
       osx_image: xcode8.3
       env:
         - SWIFT_VERSION=3.0
-      before_install:
-        export UUID=$(instruments -s | ruby -e "ARGF.each_line{ |ln| ln =~ /$NAME .* \[(.*)\]/; if \$1; puts(\$1); exit; end }");
-      before_script:
-        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
-        - cat Base.xcconfig
-      script:
-        - Scripts/ci_phases/01_lint_project.sh
-        - Scripts/ci_phases/02_run_tests_macos.sh
-        - Scripts/ci_phases/03_run_tests_ios.sh
     - os: osx
       language: objective-c
       osx_image: xcode9
       env:
         - SWIFT_VERSION=3.0
-      before_script:
-        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
-        - cat Base.xcconfig
-      script:
-        - Scripts/ci_phases/01_lint_project.sh
-        - Scripts/ci_phases/02_run_tests_macos.sh
-        - Scripts/ci_phases/03_run_tests_ios.sh
     - os: osx
       language: objective-c
       osx_image: xcode9
       env:
         - SWIFT_VERSION=4.0
-      before_script:
-        - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
-        - cat Base.xcconfig
-      script:
-        - Scripts/ci_phases/01_lint_project.sh
-        - Scripts/ci_phases/02_run_tests_macos.sh
-        - Scripts/ci_phases/03_run_tests_ios.sh
