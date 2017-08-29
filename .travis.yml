@@ -1,10 +1,14 @@
 before_script:
-  - echo "SWIFT_VERSION=$SWIFT_VERSION" > Base.xcconfig 
+  - echo "SWIFT_VERSION=$SWIFT_VERSION.0" > Base.xcconfig 
   - cat Base.xcconfig
+  - swift --version
+
 script:
   - Scripts/ci_phases/01_lint_project.sh
   - Scripts/ci_phases/02_run_tests_macos.sh
   - travis_retry Scripts/ci_phases/03_run_tests_ios.sh
+  - swift build -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
+  - swift test -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
 
 matrix:
   include:
@@ -12,34 +16,14 @@ matrix:
       language: objective-c
       osx_image: xcode8.3
       env:
-        - SWIFT_VERSION=3.0
+        - SWIFT_VERSION=3
     - os: osx
       language: objective-c
       osx_image: xcode9
       env:
-        - SWIFT_VERSION=3.0
+        - SWIFT_VERSION=3
     - os: osx
       language: objective-c
       osx_image: xcode9
       env:
-        - SWIFT_VERSION=4.0
-
-    - os: osx
-      language: objective-c
-      osx_image: xcode8.3
-      before_script:
-        - swift --version
-      script:
-        - Scripts/ci_phases/01_lint_project.sh
-        - swift build
-        - swift test
-
-    - os: osx
-      language: objective-c
-      osx_image: xcode9
-      before_script:
-        - swift --version
-      script:
-        - Scripts/ci_phases/01_lint_project.sh
-        - swift build
-        - swift test
+        - SWIFT_VERSION=4

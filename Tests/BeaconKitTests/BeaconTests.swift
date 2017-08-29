@@ -16,6 +16,8 @@ class BeaconTests: XCTestCase {
     let beaconParser = BeaconParser([EddystoneUidBeacon.self])
     
     override func setUp() {
+        print("Swift version running: \(swiftVersion)")
+
         super.setUp()
         continueAfterFailure = false
     }
@@ -32,5 +34,16 @@ class BeaconTests: XCTestCase {
         XCTAssertEqual(beacon.rssi, 0)
         XCTAssertEqual(beacon.distanceMeters, .infinity)
     }
+
+    // for debug purposes
+    #if swift(>=3.2)
+    #if swift(>=4.0)
+    let swiftVersion = "4.0"
+    #else
+    let swiftVersion = "3.2"
+    #endif
+    #else
+    let swiftVersion = "3.1"
+    #endif
     
 }
