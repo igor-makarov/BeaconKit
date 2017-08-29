@@ -59,8 +59,9 @@ class LayoutFragment {
             let range = regexMatch.rangeAt(n)
             #endif
             if range.location != NSNotFound {
-                let r = string.index(string.startIndex, offsetBy: range.location)..<string.index(string.startIndex, offsetBy: range.location+range.length)
-                return string.substring(with: r)
+                let start = string.index(string.startIndex, offsetBy: range.location)
+                let end = string.index(string.startIndex, offsetBy: range.location+range.length)
+                return String(string[start..<end])
             }
             return nil
         }

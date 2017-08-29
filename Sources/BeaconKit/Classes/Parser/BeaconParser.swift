@@ -60,7 +60,7 @@ public enum BluetoothAdvertisement: CustomStringConvertible {
     }
 }
 
-fileprivate func advertisements(from advertisementData: [AnyHashable: Any]) throws -> [BluetoothAdvertisement] {
+private func advertisements(from advertisementData: [AnyHashable: Any]) throws -> [BluetoothAdvertisement] {
     var result = [BluetoothAdvertisement]()
 
     let manufacturerData = advertisementData[CBAdvertisementDataManufacturerDataKey] as? Data
