@@ -16,10 +16,20 @@ class BeaconTests: XCTestCase {
     let beaconParser = BeaconParser([EddystoneUidBeacon.self])
     
     override func setUp() {
-        print("Swift version running: \(swiftVersion)")
-
         super.setUp()
         continueAfterFailure = false
+    }
+    
+    func test_swiftVersionIsCoherent() {
+        print("Swift version: \(swiftVersion)")
+        print("Pod Swift version: \(beaconKitGetSwiftVersion())")
+        XCTAssertEqual(swiftVersion, beaconKitGetSwiftVersion())
+        #if os(macOS)
+            if ProcessInfo.processInfo.environment["CI"] == "true" {
+                let envSwiftVersion = ProcessInfo.processInfo.environment["SWIFT_VERSION"] ?? ""
+                XCTAssertEqual(envSwiftVersion, beaconKitGetSwiftVersion().components(separatedBy: ".").first ?? "XXX")
+            }
+        #endif
     }
     
     func test_when_RSSIZero_then_distanceInfinite() {

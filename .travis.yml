@@ -1,4 +1,5 @@
 before_script:
+  - mkdir -p build
   - echo "SWIFT_VERSION=$SWIFT_VERSION.0" > Base.xcconfig 
   - echo "$SWIFT_VERSION.0" > .swift-version
   - cat Base.xcconfig
@@ -10,7 +11,7 @@ script:
   - Scripts/ci_phases/02_run_tests_macos.sh
   - travis_retry Scripts/ci_phases/03_run_tests_ios.sh
   - swift build -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
-  - swift test -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
+  - swift test -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION -Xswiftc '-DDEBUG'
 
 matrix:
   include:
