@@ -23,3 +23,23 @@ matrix:
       osx_image: xcode9
       env:
         - SWIFT_VERSION=4.0
+
+    - os: osx
+      language: objective-c
+      osx_image: xcode8.3
+      before_script:
+        - swift --version
+      script:
+        - Scripts/ci_phases/01_lint_project.sh
+        - swift build
+        - swift test
+
+    - os: osx
+      language: objective-c
+      osx_image: xcode9
+      before_script:
+        - swift --version
+      script:
+        - Scripts/ci_phases/01_lint_project.sh
+        - swift build
+        - swift test
