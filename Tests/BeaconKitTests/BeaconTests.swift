@@ -13,8 +13,6 @@ import CoreBluetooth
 // swiftlint:disable force_unwrapping
 
 class BeaconTests: XCTestCase {
-    let beaconParser = BeaconParser([EddystoneUidBeacon.self])
-    
     override func setUp() {
         super.setUp()
         continueAfterFailure = false
@@ -37,12 +35,24 @@ class BeaconTests: XCTestCase {
         let rssi = 0
         let identifier = UUID()
         let advertisement = BluetoothAdvertisement.service(CBUUID(string: "FEAA"), data)
+        let beaconParser = BeaconParser([EddystoneUidBeacon.self])
         let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
         XCTAssertEqual(beacons.count, 1)
         
         let beacon = beacons[0] as! EddystoneUidBeacon
         XCTAssertEqual(beacon.rssi, 0)
         XCTAssertEqual(beacon.distanceMeters, .infinity)
+    }
+    
+    func test_when_dataIsShort_then_doesNotCrash() {
+        let data = Data.from(hex: "00")
+        let rssi = 0
+        let identifier = UUID()
+        let advertisement = BluetoothAdvertisement.manufacturer(data)
+        let beaconParser = BeaconParser([AltBeacon.self])
+
+        let beacons = beaconParser.beacons(advertisements: [advertisement], rssi: rssi, identifier: identifier)
+        XCTAssertEqual(beacons.count, 0)        
     }
 
     // for debug purposes
