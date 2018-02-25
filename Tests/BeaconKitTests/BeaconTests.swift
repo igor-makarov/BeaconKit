@@ -9,9 +9,6 @@ import XCTest
 import CoreBluetooth
 @testable import BeaconKit
 
-// swiftlint:disable force_try
-// swiftlint:disable force_unwrapping
-
 class BeaconTests: XCTestCase {
     override func setUp() {
         super.setUp()

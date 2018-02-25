@@ -8,7 +8,6 @@ import XCTest
 import CoreBluetooth
 @testable import BeaconKit
 
-// swiftlint:disable force_try
 // swiftlint:disable force_unwrapping
 
 class EddystoneUrlParserTests: XCTestCase {

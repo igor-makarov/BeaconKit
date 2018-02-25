@@ -44,6 +44,6 @@ public class ParserLayout {
             }
         }
         
-        return BeaconRawData(type: type, txPower: txPower, identifiers:identifiers, fields: fields)
+        return BeaconRawData(type: type, txPower: txPower, identifiers: identifiers, fields: fields)
     }
 }

@@ -115,7 +115,7 @@ class PatternMatchingFragment: IntegerFragment {
     
     public func validate(_ data: Data) -> Bool {
         let range = Range(start..<end + 1).clamped(to: Range(data.startIndex..<data.endIndex))
-        if range.count < length  { return false }
+        if range.count < length { return false }
         
         let subdata = data.subdata(in: range)
         if let match = match, match != subdata { return false }

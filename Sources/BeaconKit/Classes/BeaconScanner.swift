@@ -56,12 +56,12 @@ extension BeaconScanner: CBCentralManagerDelegate {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
 //            let beaconServiceIds = self.recognizedBeaconTypes.map { $0.serviceUuid }
-            central.scanForPeripherals(withServices: nil, options:nil)
+            central.scanForPeripherals(withServices: nil, options: nil)
 //            central.scanForPeripherals(withServices: beaconServiceIds, options:nil)
         }
     }
     
-    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
+    public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         let identifier: UUID
         if #available(OSX 10.13, *) {
             identifier = peripheral.identifier
@@ -83,7 +83,7 @@ extension BeaconScanner: CBCentralManagerDelegate {
         
     }
     
-    public func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) { }
+    public func centralManager(_ central: CBCentralManager, willRestoreState dict: [String: Any]) { }
 }
 
 // MARK: ObjC only
