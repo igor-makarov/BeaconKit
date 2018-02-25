@@ -7,8 +7,6 @@
 
 import Foundation
 
-#if DEBUG
-
 public func beaconKitGetSwiftVersion() -> String {
     #if swift(>=3.2)
         #if swift(>=4.0)
@@ -21,5 +19,3 @@ public func beaconKitGetSwiftVersion() -> String {
     #endif
     return swiftVersion
 }
-    
-#endif
