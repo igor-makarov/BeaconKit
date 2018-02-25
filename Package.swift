@@ -3,5 +3,6 @@
 import PackageDescription
 
 let package = Package(
-    name: "BeaconKit"
+    name: "BeaconKit",
+    swiftLanguageVersions: [3, 4]
 )
