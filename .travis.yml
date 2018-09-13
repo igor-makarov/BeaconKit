@@ -17,11 +17,6 @@ matrix:
   include:
     - os: osx
       language: objective-c
-      osx_image: xcode8.3
-      env:
-        - SWIFT_VERSION=3
-    - os: osx
-      language: objective-c
       osx_image: xcode9
       env:
         - SWIFT_VERSION=3
@@ -30,3 +25,8 @@ matrix:
       osx_image: xcode9
       env:
         - SWIFT_VERSION=4
+    - os: osx
+      language: objective-c
+      osx_image: xcode10
+      env:
+        - SWIFT_VERSION=4        
