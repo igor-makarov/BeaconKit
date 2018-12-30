@@ -5,17 +5,7 @@ os: osx
 
 before_script:
   - mkdir -p build
-  - | 
-      [ "$LINT" != "" ] && exit 0
-      if [ "$SWIFT_VERSION" == "" ]; then 
-        if [ "$SWIFTC_VERSION" == *"."* ]; then
-          SWIFT_VERSION="$SWIFTC_VERSION"
-        else
-          SWIFT_VERSION="$SWIFTC_VERSION.0"
-        fi
-      fi
-      echo "$SWIFT_VERSION" > .swift-version
-
+  - Scripts/setup_swift_version.sh
   - bundle install
   - bundle exec xcake make
   - bundle exec pod install
