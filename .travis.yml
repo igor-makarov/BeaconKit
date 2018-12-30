@@ -5,6 +5,7 @@ before_script:
   - mkdir -p build
   - echo "$SWIFT_VERSION.0" > .swift-version
   - swift --version
+  - bundle install
   - bundle exec xcake make
   - bundle exec pod install
 
