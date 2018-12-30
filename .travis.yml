@@ -6,6 +6,7 @@ os: osx
 before_script:
   - mkdir -p build
   - | 
+      [ "$LINT" != "" ] && exit 0
       if [ "$SWIFT_VERSION" == "" ]; then 
         if [ "$SWIFTC_VERSION" == *"."* ]; then
           SWIFT_VERSION="$SWIFTC_VERSION"
