@@ -1,9 +1,9 @@
 before_script:
   - mkdir -p build
-  - echo "SWIFT_VERSION=$SWIFT_VERSION.0" > Base.xcconfig 
   - echo "$SWIFT_VERSION.0" > .swift-version
-  - cat Base.xcconfig
   - swift --version
+  - bundle exec xcake make
+  - bundle exec pod install
 
 script:
   - Scripts/ci_phases/01_lint_project.sh

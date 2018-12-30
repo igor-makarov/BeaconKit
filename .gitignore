@@ -30,6 +30,9 @@ DerivedData
 Pods
 Podfile.lock
 
+# Xcake
+**/*.xcodeproj/**/*
+
 # Rollout.io
 Rollout-ios-SDK/.cache/
 Pods/Rollout.io/.cache/

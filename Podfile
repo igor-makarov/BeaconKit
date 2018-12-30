@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+source 'https://cdn.jsdelivr.net/cocoa/'
+
 install! 'cocoapods',
          :deterministic_uuids => false
 use_frameworks!
@@ -34,7 +36,7 @@ post_install do |installer_representation|
   if ENV['SWIFT_VERSION']
     SWIFT_VERSION = "#{ENV['SWIFT_VERSION']}.0"
   else 
-    SWIFT_VERSION = File.open(".swift-version", "rb").read
+    SWIFT_VERSION = File.open(".swift-version", "rb").read.strip
   end
 
   pods_project.targets.each do |target|
