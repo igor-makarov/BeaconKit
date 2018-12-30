@@ -15,7 +15,6 @@ script:
   - travis_retry Scripts/ci_phases/03_run_tests_ios.sh
   - swift build -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
   - swift test -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION -Xswiftc '-DDEBUG'
-  - bundle exec pod lib lint --skip-tests
 
 matrix:
   include:
