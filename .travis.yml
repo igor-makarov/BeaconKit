@@ -38,5 +38,4 @@ env:
 matrix:
   include:
     - osx_image: xcode10
-      env: 
-        - LINT=true
+      env: LINT=true
