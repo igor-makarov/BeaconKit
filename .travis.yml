@@ -1,9 +1,20 @@
 
 install: true
+language: objective-c
+os: osx
 
 before_script:
   - mkdir -p build
-  - echo "$SWIFT_VERSION" > .swift-version
+  - | 
+      if [ "$SWIFT_VERSION" == "" ]; then 
+        if [ "$SWIFTC_VERSION" == *"."* ]; then
+          SWIFT_VERSION="$SWIFTC_VERSION"
+        else
+          SWIFT_VERSION="$SWIFTC_VERSION.0"
+        fi
+      fi
+      echo "$SWIFT_VERSION" > .swift-version
+
   - bundle install
   - bundle exec xcake make
   - bundle exec pod install
@@ -26,7 +37,7 @@ env:
 
 matrix:
   include:
-    - os: osx
-      language: objective-c
-      osx_image: xcode10
-      env: LINT=true
+    - osx_image: xcode10
+      env: 
+        - LINT=true
+          SWIFT_VERSION=4.2
