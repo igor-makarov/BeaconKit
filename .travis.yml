@@ -7,11 +7,11 @@ before_script:
 
 script:
   - Scripts/ci_phases/01_lint_project.sh
-  - bundle exec pod lib lint --skip-tests
   - Scripts/ci_phases/02_run_tests_macos.sh
   - travis_retry Scripts/ci_phases/03_run_tests_ios.sh
   - swift build -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
   - swift test -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION -Xswiftc '-DDEBUG'
+  - bundle exec pod lib lint --skip-tests
 
 matrix:
   include:
