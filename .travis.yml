@@ -3,28 +3,25 @@ install: true
 
 before_script:
   - mkdir -p build
-  - echo "$SWIFT_VERSION.0" > .swift-version
-  - swift --version
+  - echo "$SWIFT_VERSION" > .swift-version
   - bundle install
   - bundle exec xcake make
   - bundle exec pod install
 
 script:
-  - Scripts/ci_phases/01_lint_project.sh
-  - Scripts/ci_phases/02_run_tests_macos.sh
-  - travis_retry Scripts/ci_phases/03_run_tests_ios.sh
-  - swift build -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION
-  - swift test -Xswiftc -swift-version -Xswiftc $SWIFT_VERSION -Xswiftc '-DDEBUG'
+  - if [ "$LINT" != "" ]; then Scripts/ci_phases/01_lint_project.sh; fi
+  - if [ "$SWIFT_VERSION" != "" ]; then Scripts/ci_phases/02_run_tests_macos.sh; fi
+  - if [ "$SWIFT_VERSION" != "" ]; then travis_retry Scripts/ci_phases/03_run_tests_ios.sh; fi
+  - if [ "$SWIFTC_VERSION" != "" ]; then swift build -Xswiftc -swift-version -Xswiftc $SWIFTC_VERSION; fi
+  - if [ "$SWIFTC_VERSION" != "" ]; then swift test -Xswiftc -swift-version -Xswiftc $SWIFTC_VERSION -Xswiftc '-DDEBUG'; fi
 
-matrix:
-  include:
-    - os: osx
-      language: objective-c
-      osx_image: xcode10
-      env:
-        - SWIFT_VERSION=4
-    - os: osx
-      language: objective-c
-      osx_image: xcode10.1
-      env:
-        - SWIFT_VERSION=4        
+osx_image: 
+  - xcode10
+  - xcode10.1
+env:
+  - LINT=true
+  - SWIFT_VERSION=4.0
+  - SWIFT_VERSION=4.2
+  - SWIFTC_VERSION=4
+  - SWIFTC_VERSION=4.2
+
