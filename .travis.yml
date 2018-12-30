@@ -40,4 +40,3 @@ matrix:
     - osx_image: xcode10
       env: 
         - LINT=true
-          SWIFT_VERSION=4.2
