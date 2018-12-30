@@ -14,19 +14,7 @@ class BeaconTests: XCTestCase {
         super.setUp()
         continueAfterFailure = false
     }
-    
-    func test_swiftVersionIsCoherent() {
-        print("Swift version: \(swiftVersion)")
-        print("Pod Swift version: \(beaconKitGetSwiftVersion())")
-        XCTAssertEqual(swiftVersion, beaconKitGetSwiftVersion())
-        #if os(macOS)
-            if ProcessInfo.processInfo.environment["CI"] == "true" {
-                let envSwiftVersion = ProcessInfo.processInfo.environment["SWIFT_VERSION"] ?? ""
-                XCTAssertEqual(envSwiftVersion, beaconKitGetSwiftVersion().components(separatedBy: ".").first ?? "XXX")
-            }
-        #endif
-    }
-    
+        
     func test_when_RSSIZero_then_distanceInfinite() {
         let data = Data.from(hex: "00010001020304050607080901020304050A")
         let rssi = 0

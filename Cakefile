@@ -1,13 +1,9 @@
 project.name = 'BeaconKit'
 
-if ENV['SWIFT_VERSION']
-  SWIFT_VERSION = "#{ENV['SWIFT_VERSION']}.0"
-else 
-  SWIFT_VERSION = File.open(".swift-version", "rb").read.strip
-end
+swift_version = File.open('.swift-version', 'rb').read.strip
 
 project.all_configurations.each do |configuration|
-  configuration.settings['SWIFT_VERSION'] = SWIFT_VERSION
+  configuration.settings['SWIFT_VERSION'] = swift_version unless swift_version.empty?
 end
 
 application_for :ios, 9.0 do |target|
