@@ -37,7 +37,7 @@ public class EddystoneUrlBeacon: EddystoneBeacon {
     // swiftlint:disable:next force_try
     public private(set) lazy var url: URL = try! self.urlGenerated()
     
-    static let _validEncodingCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=`".characters)
+    private static let _validEncodingCharacters = Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~:/?#[]@!$&'()*+,;=`")
     
     static let _schemePrefixes = [
         "http://www.",

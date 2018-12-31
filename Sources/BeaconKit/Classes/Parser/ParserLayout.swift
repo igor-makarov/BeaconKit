@@ -16,12 +16,16 @@ public class ParserLayout {
             return try LayoutFragment.fragment(string: string)
         }
         
-        let typeFragments = self.fragments.flatMap { fragment -> BeaconTypeFragment? in fragment as? BeaconTypeFragment }
-        guard let typeFragment = typeFragments.first, typeFragments.count == 1 else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let typeFragments = self.fragments.compactMap { $0 as? BeaconTypeFragment }
+        guard let typeFragment = typeFragments.first, typeFragments.count == 1 else {
+            throw BeaconParsingError.incorrectFragmentSpecification
+        }
         self.typeFragment = typeFragment
         
-        let txPowerFragments = self.fragments.flatMap { fragment -> TxPowerFragment? in fragment as? TxPowerFragment }
-        guard let txPowerFragment = txPowerFragments.first, txPowerFragments.count == 1 else { throw BeaconParsingError.incorrectFragmentSpecification }
+        let txPowerFragments = self.fragments.compactMap { $0 as? TxPowerFragment }
+        guard let txPowerFragment = txPowerFragments.first, txPowerFragments.count == 1 else {
+            throw BeaconParsingError.incorrectFragmentSpecification
+        }
         self.txPowerFragment = txPowerFragment
     }
     

@@ -14,7 +14,7 @@ class BeaconTests: XCTestCase {
         super.setUp()
         continueAfterFailure = false
     }
-        
+    
     func test_when_RSSIZero_then_distanceInfinite() {
         let data = Data.from(hex: "00010001020304050607080901020304050A")
         let rssi = 0

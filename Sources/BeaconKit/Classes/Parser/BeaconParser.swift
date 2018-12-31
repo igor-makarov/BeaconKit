@@ -34,7 +34,7 @@ class BeaconParser {
 //        for i in 0...10000 {
 //            _ = i*i
 //        }
-        return advertisements.flatMap { advertisement -> Beacon? in
+        return advertisements.compactMap { advertisement in
             for beaconType in self.recognizedBeaconTypes {
                 guard beaconType.shouldAttemptParsing(advertisement: advertisement) else { continue }
                 do {
@@ -69,11 +69,8 @@ private func advertisements(from advertisementData: [AnyHashable: Any]) throws -
     }
     
     if let serviceData = advertisementData[CBAdvertisementDataServiceDataKey] as? [AnyHashable: Any] {
-        result += serviceData.flatMap { key, value -> BluetoothAdvertisement? in
-            if let key = key as? CBUUID, let value = value as? Data {
-                return .service(key, value)
-            }
-            return nil
+        for case let (key, value) as (CBUUID, Data) in serviceData {
+            result.append(.service(key, value))
         }
     }
     

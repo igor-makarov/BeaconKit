@@ -2,31 +2,23 @@
 install: true
 language: objective-c
 os: osx
+osx_image:  xcode10.1
 
 before_script:
   - mkdir -p build
-  - Scripts/setup_swift_version.sh
-  - bundle install
-  - bundle exec xcake make
-  - bundle exec pod install
+  - if [ "$LINT" != "" ]; then brew update; which swiftlint && brew upgrade swiftlint || brew install swiftlint; fi
+  - if [ "$LINT" == "" ]; then Scripts/setup_swift_version.sh; fi
+  - if [ "$LINT" == "" ]; then bundle install; fi
+  - if [ "$LINT" == "" ]; then bundle exec xcake make; fi
+  - if [ "$LINT" == "" ]; then bundle exec pod install; fi
 
 script:
-  - if [ "$LINT" != "" ]; then Scripts/ci_phases/01_lint_project.sh; fi
-  - if [ "$SWIFT_VERSION" != "" ]; then Scripts/ci_phases/02_run_tests_macos.sh; fi
-  - if [ "$SWIFT_VERSION" != "" ]; then travis_retry Scripts/ci_phases/03_run_tests_ios.sh; fi
-  - if [ "$SWIFTC_VERSION" != "" ]; then swift build -Xswiftc -swift-version -Xswiftc $SWIFTC_VERSION; fi
-  - if [ "$SWIFTC_VERSION" != "" ]; then swift test -Xswiftc -swift-version -Xswiftc $SWIFTC_VERSION -Xswiftc '-DDEBUG'; fi
+  - Scripts/run_ci.sh
 
-osx_image: 
-  - xcode10
-  - xcode10.1
 env:
   - SWIFT_VERSION=4.0
   - SWIFT_VERSION=4.2
   - SWIFTC_VERSION=4
   - SWIFTC_VERSION=4.2
+  - LINT=true
 
-matrix:
-  include:
-    - osx_image: xcode10
-      env: LINT=true

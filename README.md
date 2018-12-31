@@ -3,7 +3,7 @@ Beacon detection framework using CoreBluetooth written in Swift
 ## TL;DR
 This is a framework that wraps around CoreBluetooth and detects beacons of different types.
 
-Tested to compile with Swift 3.1, 3.2 & 4.0 for iOS 9.0 & macOS 10.12
+Tested to compile with Swift 4.0 & 4.2 for iOS 9.0 & macOS 10.12
 
 The currently supported types are: **Eddystone-UID**, **Eddystone-URL**, **AltBeacon**, **iBeacon**.
 

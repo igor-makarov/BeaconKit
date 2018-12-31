@@ -52,18 +52,13 @@ class LayoutFragment {
         }
         guard [4, 5].contains(regexMatch.numberOfRanges) else { throw BeaconParsingError.incorrectFragmentSpecification }
         
-        let matches = (1..<regexMatch.numberOfRanges).flatMap { (n: Int) -> String? in
-            #if swift(>=4.0)
+        let matches = (1..<regexMatch.numberOfRanges).compactMap { (n: Int) -> String? in
             let range = regexMatch.range(at: n)
-            #else
-            let range = regexMatch.rangeAt(n)
-            #endif
-            if range.location != NSNotFound {
-                let start = string.index(string.startIndex, offsetBy: range.location)
-                let end = string.index(string.startIndex, offsetBy: range.location+range.length)
-                return String(string[start..<end])
-            }
-            return nil
+            guard range.location != NSNotFound else { return nil }
+
+            let start = string.index(string.startIndex, offsetBy: range.location)
+            let end = string.index(string.startIndex, offsetBy: range.location+range.length)
+            return String(string[start..<end])
         }
         return matches
     }
@@ -114,7 +109,7 @@ class PatternMatchingFragment: IntegerFragment {
     }
     
     public func validate(_ data: Data) -> Bool {
-        let range = Range(start..<end + 1).clamped(to: Range(data.startIndex..<data.endIndex))
+        let range = (start..<end + 1).clamped(to: (data.startIndex..<data.endIndex))
         if range.count < length { return false }
         
         let subdata = data.subdata(in: range)
@@ -132,10 +127,10 @@ class ServiceTypeFragment: PatternMatchingFragment {  }
 class FieldFragment: LayoutFragment {
     let canBeShorter: Bool = true
     func getValue(_ data: Data) throws -> Data {
-        var desiredRange = Range(start..<end + 1)
+        var desiredRange = (start..<end + 1)
         guard start < data.endIndex else { throw BeaconParsingError.parseError }
         
-        let availableRange = Range(start..<data.endIndex)
+        let availableRange = (start..<data.endIndex)
         
         if availableRange.count < desiredRange.count {
             if canBeShorter {
