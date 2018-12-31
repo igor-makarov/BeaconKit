@@ -6,7 +6,7 @@ osx_image:  xcode10.1
 
 before_script:
   - mkdir -p build
-  - if [ "$LINT" != "" ]; then which swiftlint && brew upgrade swiftlint || brew install swiftlint; fi
+  - if [ "$LINT" != "" ]; then brew update; which swiftlint && brew upgrade swiftlint || brew install swiftlint; fi
   - if [ "$LINT" == "" ]; then Scripts/setup_swift_version.sh; fi
   - if [ "$LINT" == "" ]; then bundle install; fi
   - if [ "$LINT" == "" ]; then bundle exec xcake make; fi
