@@ -6,11 +6,11 @@ osx_image:  xcode10.1
 
 before_script:
   - mkdir -p build
-  - [ "$LINT" != "" ] && brew install swifltint || true
-  - [ "$LINT" == "" ] && Scripts/setup_swift_version.sh || true
-  - [ "$LINT" == "" ] && bundle install || true
-  - [ "$LINT" == "" ] && bundle exec xcake make || true
-  - [ "$LINT" == "" ] && bundle exec pod install || true
+  - if [ "$LINT" != "" ]; then brew install swifltint; fi
+  - if [ "$LINT" == "" ]; then Scripts/setup_swift_version.sh; fi
+  - if [ "$LINT" == "" ]; then bundle install; fi
+  - if [ "$LINT" == "" ]; then bundle exec xcake make; fi
+  - if [ "$LINT" == "" ]; then bundle exec pod install; fi
 
 script:
   - Scripts/run_ci.sh
