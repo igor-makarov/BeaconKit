@@ -13,7 +13,6 @@ abstract_target 'Common' do
   pod 'BeaconKit', path: './', testspecs: ['Tests']
   abstract_target 'iOS' do
     platform :ios, '9.0'
-    pod 'SwiftLint'
 
     target 'BeaconKitSample'
     target 'BeaconKitSampleObjC'
