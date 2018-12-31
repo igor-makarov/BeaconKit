@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -l -e
 if [ "$LINT" != "" ]; then 
   echo "Linting project..."
   Scripts/ci_phases/01_lint_project.sh
