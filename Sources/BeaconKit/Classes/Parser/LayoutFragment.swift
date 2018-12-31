@@ -52,18 +52,13 @@ class LayoutFragment {
         }
         guard [4, 5].contains(regexMatch.numberOfRanges) else { throw BeaconParsingError.incorrectFragmentSpecification }
         
-        let matches = (1..<regexMatch.numberOfRanges).flatMap { (n: Int) -> String? in
-            #if swift(>=4.0)
+        let matches = (1..<regexMatch.numberOfRanges).compactMap { (n: Int) -> String? in
             let range = regexMatch.range(at: n)
-            #else
-            let range = regexMatch.rangeAt(n)
-            #endif
-            if range.location != NSNotFound {
-                let start = string.index(string.startIndex, offsetBy: range.location)
-                let end = string.index(string.startIndex, offsetBy: range.location+range.length)
-                return String(string[start..<end])
-            }
-            return nil
+            guard range.location != NSNotFound else { return nil }
+
+            let start = string.index(string.startIndex, offsetBy: range.location)
+            let end = string.index(string.startIndex, offsetBy: range.location+range.length)
+            return String(string[start..<end])
         }
         return matches
     }

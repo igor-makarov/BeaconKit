@@ -43,7 +43,7 @@ open class Beacon: NSObject {
 
     public class func shouldAttemptParsing(advertisement: BluetoothAdvertisement) -> Bool {
         guard let data = self.validateAndGetData(advertisement: advertisement) else { return false }
-        for matchingFragment in self.layout.fragments.flatMap({ $0 as? PatternMatchingFragment }) {
+        for case let matchingFragment as PatternMatchingFragment in self.layout.fragments {
             if !matchingFragment.validate(data) {
                 return false
             }
