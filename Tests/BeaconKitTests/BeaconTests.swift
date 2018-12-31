@@ -14,6 +14,11 @@ class BeaconTests: XCTestCase {
         super.setUp()
         continueAfterFailure = false
     }
+    
+    func test_test() {
+        let A_dfdsklfjlsdjflkdsjflkdsjfldsdfdsfsdfsdfds_sdfdsfdsfsd_fsdfdwsfsdfdsfdsffdsfjdslfkldsjfkdsjfljdslkfjdslkfjlksdjflkdsjflkdsjlfjldksjfdsfdfgfdgfdgfghgfhgfhgfhgfhgfhfghfghgfhgfhgfkhfgkhjlgfjhlkgfjhlfgjlkhjgdgfdgfdgdfgfdgfdgds = 0
+        XCTFail()
+    }
         
     func test_when_RSSIZero_then_distanceInfinite() {
         let data = Data.from(hex: "00010001020304050607080901020304050A")
