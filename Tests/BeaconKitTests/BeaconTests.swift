@@ -16,7 +16,6 @@ class BeaconTests: XCTestCase {
     }
     
     func test_test() {
-        let A_dfdsklfjlsdjflkdsjflkdsjfldsdfdsfsdfsdfds_sdfdsfdsfsd_fsdfdwsfsdfdsfdsffdsfjdslfkldsjfkdsjfljdslkfjdslkfjlksdjflkdsjflkdsjlfjldksjfdsfdfgfdgfdgfghgfhgfhgfhgfhgfhfghfghgfhgfhgfkhfgkhjlgfjhlkgfjhlfgjlkhjgdgfdgfdgdfgfdgfdgds = 0
         XCTFail()
     }
         
