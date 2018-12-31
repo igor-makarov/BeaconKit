@@ -8,3 +8,5 @@ if [ "$SWIFTC_VERSION" != "" ]; then
 elif [ "$SWIFT_VERSION" != "" ]; then
   echo "$SWIFT_VERSION" > .swift-version
 fi
+echo "Swift fersion in file:"
+cat .swift-version
