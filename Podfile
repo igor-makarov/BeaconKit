@@ -29,11 +29,14 @@ end
 post_install do |installer_representation|
   pods_project = installer_representation.pods_project
 
-  # swift_version = File.open('.swift-version', 'rb').read.strip
+  swift_version = File.open('.swift-version', 'rb').read.strip
 
   pods_project.targets.each do |target|
     target.build_configurations.each do |config|
-      # config.build_settings['SWIFT_VERSION'] = swift_version unless swift_version.empty?
+      next if swift_version.empty?
+
+      config.build_settings['SWIFT_VERSION'] = swift_version
+      STDERR.puts "Setting #{target.name} to Swift version: #{swift_version}"
     end
   end
 end

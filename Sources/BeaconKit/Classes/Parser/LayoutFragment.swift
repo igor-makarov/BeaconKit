@@ -109,7 +109,7 @@ class PatternMatchingFragment: IntegerFragment {
     }
     
     public func validate(_ data: Data) -> Bool {
-        let range = Range(start..<end + 1).clamped(to: Range(data.startIndex..<data.endIndex))
+        let range = (start..<end + 1).clamped(to: (data.startIndex..<data.endIndex))
         if range.count < length { return false }
         
         let subdata = data.subdata(in: range)
@@ -127,10 +127,10 @@ class ServiceTypeFragment: PatternMatchingFragment {  }
 class FieldFragment: LayoutFragment {
     let canBeShorter: Bool = true
     func getValue(_ data: Data) throws -> Data {
-        var desiredRange = Range(start..<end + 1)
+        var desiredRange = (start..<end + 1)
         guard start < data.endIndex else { throw BeaconParsingError.parseError }
         
-        let availableRange = Range(start..<data.endIndex)
+        let availableRange = (start..<data.endIndex)
         
         if availableRange.count < desiredRange.count {
             if canBeShorter {
